@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('phone_name');
             $table->string('phone_image');
             $table->string('description');
-            $table->integer('quantities');
+            $table->integer('quantities')->default(0);
+            $table->float('price');
             $table->integer('status');
-            $table->integer('purchases');
-            $table->integer('status');
+            $table->integer('purchases')->default(0);
 
             $table->unsignedBigInteger('manu_id'); // Mã hãng kiểu int
             $table->foreign('manu_id')->references('id')->on('manufacturers')->onDelete('cascade'); // Tạo khóa ngoại với bảng manufacturers
