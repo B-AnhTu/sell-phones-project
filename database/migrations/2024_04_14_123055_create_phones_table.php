@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('phones', function (Blueprint $table) {
             $table->id();
             $table->string('phone_name');
-            $table->string('phone_image');
+            $table->string('phone_image')->nullable();
             $table->string('description');
             $table->integer('quantities')->default(0);
-            $table->float('price');
+            $table->double('price');
             $table->integer('status');
             $table->integer('purchases')->default(0);
 
