@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('username');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('user_type');
-            $table->string('avatar');
+            $table->integer('user_type')->default(0);
+            $table->string('avatar')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

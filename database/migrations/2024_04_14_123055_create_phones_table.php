@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('phones', function (Blueprint $table) {
             $table->id();
             $table->string('phone_name');
-            $table->string('phone_image');
+            $table->string('phone_image')->nullable();
             $table->string('description');
-            $table->integer('quantities');
+            $table->integer('quantities')->default(0);
+            $table->double('price');
             $table->integer('status');
-            $table->integer('purchases');
-            $table->integer('status');
+            $table->integer('purchases')->default(0);
 
             $table->unsignedBigInteger('manu_id'); // Mã hãng kiểu int
             $table->foreign('manu_id')->references('id')->on('manufacturers')->onDelete('cascade'); // Tạo khóa ngoại với bảng manufacturers
