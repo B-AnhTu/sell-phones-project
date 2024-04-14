@@ -21,7 +21,9 @@ class UsersTableSeeder extends Seeder
             'email' => 'anhtu@gmail.com',
             'password' => Hash::make('password'),
             'user_type' => 1,
-            'avatar' => null
+            'avatar' => null,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('users')->insert([
             'user_fullname' => 'Nguyễn Thanh Toàn',
@@ -29,7 +31,9 @@ class UsersTableSeeder extends Seeder
             'email' => 'thanhtoan123@gmail.com',
             'password' => Hash::make('password'),
             'user_type' => 0,
-            'avatar' => null
+            'avatar' => null,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('users')->insert([
             'user_fullname' => 'Hồ Cẩm Ty',
@@ -37,7 +41,9 @@ class UsersTableSeeder extends Seeder
             'email' => 'hocamty@gmail.com',
             'password' => Hash::make('password'),
             'user_type' => 0,
-            'avatar' => null
+            'avatar' => null,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }

@@ -15,12 +15,18 @@ class CategoriesTableSeeder extends Seeder
     {
         DB::table('categories')->insert([
             'category_name' => 'Điện thoại',
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('categories')->insert([
             'category_name' => 'Phụ kiện',
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('categories')->insert([
             'category_name' => 'Máy tính bảng',
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
 
     }

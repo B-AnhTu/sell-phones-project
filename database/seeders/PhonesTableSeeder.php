@@ -22,7 +22,9 @@ class PhonesTableSeeder extends Seeder
             'status' => 1,
             'purchases' => 0,
             'manu_id' => 2,
-            'category_id' => 1
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Iphone 7s',
@@ -33,7 +35,9 @@ class PhonesTableSeeder extends Seeder
             'status' => 1,
             'purchases' => 0,
             'manu_id' => 2,
-            'category_id' => 1
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Samsung Galaxy A23',
@@ -44,7 +48,9 @@ class PhonesTableSeeder extends Seeder
             'status' => 1,
             'purchases' => 0,
             'manu_id' => 1,
-            'category_id' => 1
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Samsung Galaxy A50',
@@ -55,7 +61,9 @@ class PhonesTableSeeder extends Seeder
             'status' => 1,
             'purchases' => 0,
             'manu_id' => 1,
-            'category_id' => 1
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Huawei Mate P40 Pro',
@@ -66,7 +74,9 @@ class PhonesTableSeeder extends Seeder
             'status' => 1,
             'purchases' => 0,
             'manu_id' => 3,
-            'category_id' => 1
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
     }
 }
