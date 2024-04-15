@@ -5,6 +5,8 @@ Cấu hình:
 - php phải là 8.2
 - composer phải lấy đúng version của php
 
+File HTML trang chủ: https://github.com/B-AnhTu/giaodienHTML/tree/trangchu
+
 Lưu ý: 
 - Khi vào Github nhớ clone sang nhánh master, TUYỆT ĐỐI không đụng vào nhánh main.
 - Làm chức năng nào thì commit nhánh đó rồi push lên.
