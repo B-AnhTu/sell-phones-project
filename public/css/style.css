@@ -1,0 +1,29 @@
+.search-btn{
+    margin-left: -10px;
+    color: white;
+    padding: 0 20px;
+    background-color: orange;
+}
+.navbar-icon{
+    color: black;
+    text-decoration: none;
+    padding: 10px 25px;
+    font-size: 20px;
+}
+.navbar-icon:hover{
+    color: red;
+}
+.bg-gray{
+    background-color: #f0eaea;
+}
+.addcart{
+    padding: 5px 10px;
+    text-decoration: none;
+    background-color: aqua;
+    color: black;
+    font-weight: bold;
+}
+.addcart:hover{
+    background-color: rgba(43, 21, 241, 0.849);
+    color: white;
+}
