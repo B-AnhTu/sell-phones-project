@@ -19,7 +19,7 @@ class CrudUserController extends Controller
     public function login()
     {
         //Đường dẫn đến trang login
-        return view('crud_user.login');
+        return view('auth.login');
     }
 
     /**
@@ -36,7 +36,7 @@ class CrudUserController extends Controller
         $credentials = $request->only('email', 'password');
         // Kiểm tra phiên đăng nhập có hợp lệ không, nếu thành công chuyển đường dẫn sang trang list
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('list')
+            return redirect()->intended('index')
                 ->withSuccess('Signed in');
         }
         //Nếu đăng nhập thất bại thì hiển thị lỗi
@@ -49,7 +49,7 @@ class CrudUserController extends Controller
     public function createUser()
     {
         //Đường dẫn đến trang tạo người dùng
-        return view('crud_user.registration');
+        return view('auth.registration');
     }
 
     /**
