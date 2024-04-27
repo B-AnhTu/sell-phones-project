@@ -35,8 +35,8 @@ Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
 
 Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 
-//CRUD_Product
-Route::get('/phones', [PhoneController::class, 'index'])->name('phones.index');
+//CRUD_Product (chưa chỉnh sửa chỉ mới copy từ chatgpt nên đừng test)
+Route::get('index', [PhoneController::class, 'index'])->name('phones.index');
 Route::get('/phones/{name}', [PhoneController::class, 'showByName'])->name('phones.showByName');
 Route::get('/phones/category/{category}', [PhoneController::class, 'showByCategory'])->name('phones.showByCategory');
 Route::get('/phones/manufacturer/{manufacturer}', [PhoneController::class, 'showByManufacturer'])->name('phones.showByManufacturer');

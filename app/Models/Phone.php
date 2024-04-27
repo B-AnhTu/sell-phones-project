@@ -22,4 +22,11 @@ class Phone extends Model
         'manu_id',
         'category_id'
     ];
+
+    protected $table = 'phones';
+
+    protected $primaryKey = 'phone_id';
+
+    public $incrementing = true;
+
 }

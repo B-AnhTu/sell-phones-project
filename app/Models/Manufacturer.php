@@ -12,4 +12,10 @@ class Manufacturer extends Model
         'manufacturer_name',
         'image'
     ];
+
+    protected $table = 'manufacturers';
+
+    protected $primaryKey = 'manu_id';
+
+    public $incrementing = true;
 }
