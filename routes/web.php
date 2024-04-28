@@ -36,16 +36,26 @@ Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
 Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
 
 //CRUD_Product (chưa chỉnh sửa chỉ mới copy từ chatgpt nên đừng test)
-Route::get('index', [PhoneController::class, 'index'])->name('phones.index');
-Route::get('/phones/{name}', [PhoneController::class, 'showByName'])->name('phones.showByName');
-Route::get('/phones/category/{category}', [PhoneController::class, 'showByCategory'])->name('phones.showByCategory');
-Route::get('/phones/manufacturer/{manufacturer}', [PhoneController::class, 'showByManufacturer'])->name('phones.showByManufacturer');
-Route::post('/phones/search', [PhoneController::class, 'search'])->name('phones.search');
-Route::post('/phones', [PhoneController::class, 'store'])->name('phones.store');
-Route::delete('/phones/{id}', [PhoneController::class, 'destroy'])->name('phones.destroy');
-Route::put('/phones/{id}', [PhoneController::class, 'update'])->name('phones.update');
+// Route::get('index', [PhoneController::class, 'index'])->name('phones.index');
+// Route::get('/phones/{name}', [PhoneController::class, 'showByName'])->name('phones.showByName');
+// Route::get('/phones/category/{category}', [PhoneController::class, 'showByCategory'])->name('phones.showByCategory');
+// Route::get('/phones/manufacturer/{manufacturer}', [PhoneController::class, 'showByManufacturer'])->name('phones.showByManufacturer');
+// Route::post('/phones/search', [PhoneController::class, 'search'])->name('phones.search');
+// Route::post('/phones', [PhoneController::class, 'store'])->name('phones.store');
+// Route::delete('/phones/{id}', [PhoneController::class, 'destroy'])->name('phones.destroy');
+// Route::put('/phones/{id}', [PhoneController::class, 'update'])->name('phones.update');
+
+// Route hiển thị danh sách sản phẩm
+Route::get('/phones', [PhoneController::class, 'index'])->name('phones.index');
+
+// Route tìm kiếm sản phẩm
+Route::get('/phones/search', [PhoneController::class, 'search'])->name('phones.search');
 
 
 Route::get('/', function () {
     return view('home');
 });
+
+Route::get('/admin', function () {
+    // Logic cho trang admin
+})->middleware('auth', 'role:1');

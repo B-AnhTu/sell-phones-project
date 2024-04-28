@@ -13,10 +13,7 @@ return new class extends Migration
     {
         Schema::create('order_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('order_id'); // Mã đơn hàng kiểu int
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade'); // Tạo khóa ngoại với bảng orders
-            $table->unsignedBigInteger('phone_id'); // Mã hãng kiểu int
-            $table->foreign('phone_id')->references('id')->on('phones')->onDelete('cascade'); // Tạo khóa ngoại với bảng phones
+            
             $table->timestamps();
         });
     }

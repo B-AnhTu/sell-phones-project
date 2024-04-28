@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('cartdetails', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // Mã hãng kiểu int
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Tạo khóa ngoại với bảng users
+            // $table->unsignedBigInteger('user_id'); // Mã hãng kiểu int
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Tạo khóa ngoại với bảng users
 
-            $table->unsignedBigInteger('phone_id'); // Mã hãng kiểu int
-            $table->foreign('phone_id')->references('id')->on('phones')->onDelete('cascade'); // Tạo khóa ngoại với bảng phones
-            $table->integer('quantity');
+            // $table->unsignedBigInteger('phone_id'); // Mã hãng kiểu int
+            // $table->foreign('phone_id')->references('id')->on('phones')->onDelete('cascade'); // Tạo khóa ngoại với bảng phones
+            // $table->integer('quantity');
             $table->timestamps();
         });
     }

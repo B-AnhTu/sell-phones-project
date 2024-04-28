@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Database\Database;
 use App\Models\Phone;
-use App\Models\User;
 use App\Models\Category;
 use App\Models\Manufacturer;
 
@@ -17,14 +16,32 @@ use Illuminate\Support\Facades\DB;
 
 class PhoneController extends Controller
 {
+    /**
+     * Hiển thị danh sách 4 sản phẩm có phân trang.
+     *
+     * 
+     */
     public function index()
     {
-        $phones = Phone::all();
-        $category = Category::all();
-        $manufacturer = Manufacturer::all();
-        return view('phone.index', ['phones' => $phones, 'category' => $category,'manufacturer' => $manufacturer]);
+        $phones = Phone::with('category', 'manufacturer')->paginate(4);
+        return view('phones.index', compact('phones'));
     }
 
+    /**
+     * Tìm kiếm sản phẩm.
+     *
+     * 
+     */
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+        $phone = Phone::where('phone_name', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('description', 'like', '%' . $searchTerm . '%')
+                        ->with('category', 'manufacturer')
+                        ->paginate(4);
+
+        return view('phones.search', compact('phone'));
+    }
     /**
      * Hiển thị sản phẩm theo tên.
      */
@@ -184,10 +201,10 @@ class PhoneController extends Controller
     /**
      * Tìm kiếm sản phẩm theo tên.
      */
-    public function search(Request $request)
-    {
-        $keyword = $request->input('keyword');
-        $phones = Phone::where('name', 'like', '%' . $keyword . '%')->get();
-        return view('phones.index', compact('phones'));
-    }
+    // public function search(Request $request)
+    // {
+    //     $keyword = $request->input('keyword');
+    //     $phones = Phone::where('name', 'like', '%' . $keyword . '%')->get();
+    //     return view('phones.index', compact('phones'));
+    // }
 }

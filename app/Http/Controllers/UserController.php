@@ -69,14 +69,6 @@ class CrudUserController extends Controller
         ]);
 
         $data = $request->all();
-
-        // Kiểm tra xem 'phone' có được gửi từ form hay không
-        if (!empty($data['phone'])) {
-            // Nếu 'phone' không được gửi từ form, gán giá trị mặc định hoặc null cho 'phone'
-            $data['phone'] = null;
-        }
-
-
         // Xử lý tải lên hình ảnh
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
@@ -103,8 +95,8 @@ class CrudUserController extends Controller
         //Lấy id của người dùng cần đọc và tìm đúng id đó
         $user_id = $request->get('id');
         $user = User::find($user_id);
-        //Đường dẫn đến trang view với biến truyền đi là messi
-        return view('crud_user.read', ['messi' => $user]);
+        //Đường dẫn đến trang view với biến truyền đi là user
+        return view('crud_user.read', ['user' => $user]);
     }
 
     /**
