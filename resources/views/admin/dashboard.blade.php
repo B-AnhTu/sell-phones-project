@@ -56,8 +56,7 @@
                           </form>
                           <!-- Các icon điều hướng -->
                           <div class="navbar-action">
-                            <a class="navbar-icon" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-                            <a class="navbar-icon" href="#"><i class="fa-solid fa-user"></i></a>
+                            <a class="navbar-icon" href="{{ route('admin.profile')}}"><i class="fa-solid fa-user mx-2"></i>Admin</a>
                           </div>
                         </div>
                       </nav>

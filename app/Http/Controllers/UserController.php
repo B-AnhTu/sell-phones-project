@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 /**
  * CRUD User controller
  */
-class CrudUserController extends Controller
+class UserController extends Controller
 {
     /**
      * Login page
@@ -42,7 +42,6 @@ class CrudUserController extends Controller
         //Nếu đăng nhập thất bại thì hiển thị lỗi
         return redirect("login")->withSuccess('Login details are not valid');
     }
-
     /**
      * Registration page
      */

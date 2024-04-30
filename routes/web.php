@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CrudUserController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhoneController;
+use App\Http\Controllers\DashBoardController;
 
 
 /*
@@ -15,25 +16,16 @@ use App\Http\Controllers\PhoneController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// CRUD_User
-Route::get('dashboard', [CrudUserController::class, 'dashboard']);
+// User
+Route::get('dashboard', [UserController::class, 'dashboard']);
 
-Route::get('login', [CrudUserController::class, 'login'])->name('login');
-Route::post('login', [CrudUserController::class, 'authUser'])->name('user.authUser');
+Route::get('login', [UserController::class, 'login'])->name('login');
+Route::post('login', [UserController::class, 'authUser'])->name('user.authUser');
 
-Route::get('create', [CrudUserController::class, 'createUser'])->name('user.createUser');
-Route::post('create', [CrudUserController::class, 'postUser'])->name('user.postUser');
+Route::get('registration', [UserController::class, 'createUser'])->name('user.createUser');
+Route::post('registration', [UserController::class, 'postUser'])->name('user.postUser');
 
-Route::get('read', [CrudUserController::class, 'readUser'])->name('user.readUser');
-
-Route::get('delete', [CrudUserController::class, 'deleteUser'])->name('user.deleteUser');
-
-Route::get('update', [CrudUserController::class, 'updateUser'])->name('user.updateUser');
-Route::post('update', [CrudUserController::class, 'postUpdateUser'])->name('user.postUpdateUser');
-
-Route::get('list', [CrudUserController::class, 'listUser'])->name('user.list');
-
-Route::get('signout', [CrudUserController::class, 'signOut'])->name('signout');
+Route::get('signout', [UserController::class, 'signOut'])->name('signout');
 
 //CRUD_Product (chưa chỉnh sửa chỉ mới copy từ chatgpt nên đừng test)
 // Route::get('index', [PhoneController::class, 'index'])->name('phones.index');
@@ -62,5 +54,16 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'admin'], function () {
     // Admin routes
+    Route::get('index', [DashBoardController::class, 'index'])->name('admin.index');
+    Route::get('profile', [DashBoardController::class, 'profile'])->name('admin.profile');
+    //User routes
+    Route::get('read', [UserController::class, 'readUser'])->name('user.readUser');
+
+    Route::get('delete', [UserController::class, 'deleteUser'])->name('user.deleteUser');
+
+    Route::get('update', [UserController::class, 'updateUser'])->name('user.updateUser');
+    Route::post('update', [UserController::class, 'postUpdateUser'])->name('user.postUpdateUser');
+
+    Route::get('list', [UserController::class, 'listUser'])->name('user.list');
 
 });

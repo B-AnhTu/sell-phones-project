@@ -121,7 +121,7 @@ class PhoneController extends Controller
             'category_id' => $data['category_id'],
         ]);
 
-        return redirect()->route('phones.index')->with('success', 'Sản phẩm đã được thêm thành công.');
+        return redirect()->route('admin.phone.list')->with('success', 'Sản phẩm đã được thêm thành công.');
     }
 
     /**
@@ -142,7 +142,7 @@ class PhoneController extends Controller
         $phone_id = $request->get('id');
         $phone = Phone::find($phone_id);
         //Chuyển đến trang cập nhật
-        return view('crud_phone.update', ['phone' => $phone]);
+        return view('admin.phone.update', ['phone' => $phone]);
     }
     /**
      * Cập nhật thông tin sản phẩm vào cơ sở dữ liệu.
