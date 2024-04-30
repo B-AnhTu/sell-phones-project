@@ -23,8 +23,9 @@ class PhoneController extends Controller
      */
     public function index()
     {
-        $phones = Phone::with('category', 'manufacturer')->paginate(4);
+        $phones = DB::table('phones')->orderBy('phones.phone_id', 'desc')->paginate(4);
         return view('phones.index', compact('phones'));
+
     }
 
     /**
@@ -38,6 +39,7 @@ class PhoneController extends Controller
         $phone = Phone::where('phone_name', 'like', '%' . $searchTerm . '%')
                         ->orWhere('description', 'like', '%' . $searchTerm . '%')
                         ->with('category', 'manufacturer')
+                        ->get()
                         ->paginate(4);
 
         return view('phones.search', compact('phone'));
@@ -47,7 +49,7 @@ class PhoneController extends Controller
      */
     public function showByName($name)
     {
-        $phone = Phone::where('name', $name)->first();
+        $phone = DB::table('phones')::where('phone_name', $name)->get();
         return view('phones.show', compact('phone'));
     }
 
@@ -57,7 +59,7 @@ class PhoneController extends Controller
     public function showByCategory($categoryId)
     {
         $phones = Phone::where('category_id', $categoryId)->get();
-        return view('phones.index', compact('phones'));
+        return view('phones.search', compact('phones'));
     }
 
     /**
@@ -66,6 +68,11 @@ class PhoneController extends Controller
     public function showByManufacturer($manufacturerId)
     {
         $phones = Phone::where('manufacturer_id', $manufacturerId)->get();
+        // Điều chỉnh trường status dựa trên giá trị của trường quantities
+        foreach ($phones as $phone) {
+            $phone->status = ($phone->quantities > 0) ? 1 : 0;
+            $phone->save();
+        }
         return view('phones.index', compact('phones'));
     }
 
@@ -74,7 +81,10 @@ class PhoneController extends Controller
      */
     public function createProduct()
     {
-        return view('phones.create');
+        $categories = DB::table('categories')->select('*')->get();
+        $manufacturers = DB::table('manufacturers')->select('*')->get();
+        $products = DB::table('products')->select('*')->get();
+        return view('admin.phone.create', ['categories' => $categories, 'products' => $products, 'manufacturers' => $manufacturers]);
     }
 
     /**
@@ -181,10 +191,10 @@ class PhoneController extends Controller
         return redirect("list")->withSuccess('You have signed-in');
 
         // Cập nhật sản phẩm
-        $phone = Phone::findOrFail($id);
-        $phone->update($validated);
+        //$phone = Phone::findOrFail($id);
+        //$phone->update($validated);
 
-        return redirect()->route('phones.index')->with('success', 'Thông tin sản phẩm đã được cập nhật thành công.');
+        //return redirect()->route('phones.index')->with('success', 'Thông tin sản phẩm đã được cập nhật thành công.');
     }
 
     /**

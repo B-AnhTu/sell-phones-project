@@ -27,3 +27,11 @@
     background-color: rgba(43, 21, 241, 0.849);
     color: white;
 }
+.product-image{
+    width: 200px;
+    height: auto;
+}
+.logo{
+    width: 180px;
+    height: 60px;
+}

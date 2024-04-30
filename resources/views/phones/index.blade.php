@@ -9,7 +9,7 @@
                 <div class="col-md-3 my-4">
                     <div class="product">
                         <div class="product-image">
-                            <img src="{{ asset('images/' .$phone->image) }}" alt="iPhone 15 Pro">
+                            <img class="img-fluid" src="{{ asset('images/' .$phone->phone_image) }}" alt="iPhone 15 Pro">
                         </div>
                         <div class="product-info">
                             <h3>{{$phone->phone_name}}</h3>

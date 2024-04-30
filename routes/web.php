@@ -51,11 +51,16 @@ Route::get('/phones', [PhoneController::class, 'index'])->name('phones.index');
 // Route tìm kiếm sản phẩm
 Route::get('/phones/search', [PhoneController::class, 'search'])->name('phones.search');
 
+// Route hiển thị sản phẩm theo danh mục
+
+
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/admin', function () {
-    // Logic cho trang admin
-})->middleware('auth', 'role:1');
+
+Route::group(['middleware' => 'admin'], function () {
+    // Admin routes
+
+});

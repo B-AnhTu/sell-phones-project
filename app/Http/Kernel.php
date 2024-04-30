@@ -68,7 +68,6 @@ class Kernel extends HttpKernel
      * Xác thực người dùng có quyền truy cập admin không
      */
     protected $routeMiddleware = [
-        // Các middleware khác...
-        'role' => \App\Http\Middleware\CheckRole::class,
+        'admin' => \App\Http\Middleware\CheckUserRole::class,
     ];
 }

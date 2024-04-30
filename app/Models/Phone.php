@@ -29,12 +29,12 @@ class Phone extends Model
 
     public $incrementing = true;
 
-    public function category()
+    public function categories()
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
 
-    public function manufacturer()
+    public function manufacturers()
     {
         return $this->belongsTo(Manufacturer::class, 'manu_id');
     }
