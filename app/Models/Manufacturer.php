@@ -12,4 +12,15 @@ class Manufacturer extends Model
         'manufacturer_name',
         'image'
     ];
+
+    protected $table = 'manufacturers';
+
+    protected $primaryKey = 'manu_id';
+
+    public $incrementing = true;
+
+    public function phones()
+    {
+        return $this->hasMany(Phone::class, 'manu_id');
+    }
 }

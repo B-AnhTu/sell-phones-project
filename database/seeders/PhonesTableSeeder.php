@@ -15,7 +15,7 @@ class PhonesTableSeeder extends Seeder
     {
         DB::table('phones')->insert([
             'phone_name' => 'Iphone 6s',
-            'phone_image' => null,
+            'phone_image' => 'iphone6.png',
             'description' => 'Điện thoại iphone',
             'quantities' => 25,
             'price' => 2499000,
@@ -28,7 +28,7 @@ class PhonesTableSeeder extends Seeder
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Iphone 7s',
-            'phone_image' => null,
+            'phone_image' => 'iphone7s.png',
             'description' => 'Điện thoại iphone',
             'quantities' => 43,
             'price' => 3499000,
@@ -41,7 +41,7 @@ class PhonesTableSeeder extends Seeder
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Samsung Galaxy A23',
-            'phone_image' => null,
+            'phone_image' => 'samsunga15.png',
             'description' => 'Điện thoại samsung',
             'quantities' => 25,
             'price' => 3790000,
@@ -54,7 +54,7 @@ class PhonesTableSeeder extends Seeder
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Samsung Galaxy A50',
-            'phone_image' => null,
+            'phone_image' => 'samsunga50.png',
             'description' => 'Điện thoại samsung',
             'quantities' => 25,
             'price' => 3999000,
@@ -67,10 +67,23 @@ class PhonesTableSeeder extends Seeder
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Huawei Mate P40 Pro',
-            'phone_image' => null,
+            'phone_image' => 'huawei_p50_pro.jpg',
             'description' => 'Điện thoại Huawei',
             'quantities' => 48,
             'price' => 2899000,
+            'status' => 1,
+            'purchases' => 0,
+            'manu_id' => 3,
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('phones')->insert([
+            'phone_name' => 'Xiaomi Redmi Note 13',
+            'phone_image' => 'xiaomi-redmi-note-13.webp',
+            'description' => 'Điện thoại Huawei',
+            'quantities' => 62,
+            'price' => 5699000,
             'status' => 1,
             'purchases' => 0,
             'manu_id' => 3,

@@ -12,20 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('phones', function (Blueprint $table) {
-            $table->id();
-            $table->string('phone_name');
+            //$table->id();
+            $table->increments('phone_id');            
+            $table->string('phone_name', 100);
             $table->string('phone_image')->nullable();
-            $table->string('description');
+            $table->string('description', 100);
             $table->integer('quantities')->default(0);
             $table->double('price');
             $table->integer('status');
             $table->integer('purchases')->default(0);
-
-            $table->unsignedBigInteger('manu_id'); // Mã hãng kiểu int
-            $table->foreign('manu_id')->references('id')->on('manufacturers')->onDelete('cascade'); // Tạo khóa ngoại với bảng manufacturers
-
-            $table->unsignedBigInteger('category_id'); // Mã hãng kiểu int
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade'); // Tạo khóa ngoại với bảng categories
+            $table->integer('manu_id');
+            $table->integer('category_id');
 
             $table->timestamps();
         });

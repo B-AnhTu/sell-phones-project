@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id'); // Mã users kiểu int
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Tạo khóa ngoại với bảng users
+            //$table->id();
+            $table->increments('order_id');
+            $table->integer('user_id');
             $table->timestamps();
         });
     }

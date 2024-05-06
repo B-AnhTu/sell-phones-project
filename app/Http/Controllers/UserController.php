@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 /**
  * CRUD User controller
  */
-class CrudUserController extends Controller
+class UserController extends Controller
 {
     /**
      * Login page
@@ -19,7 +19,7 @@ class CrudUserController extends Controller
     public function login()
     {
         //Đường dẫn đến trang login
-        return view('crud_user.login');
+        return view('auth.login');
     }
 
     /**
@@ -36,20 +36,19 @@ class CrudUserController extends Controller
         $credentials = $request->only('email', 'password');
         // Kiểm tra phiên đăng nhập có hợp lệ không, nếu thành công chuyển đường dẫn sang trang list
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('list')
+            return redirect()->intended('index')
                 ->withSuccess('Signed in');
         }
         //Nếu đăng nhập thất bại thì hiển thị lỗi
         return redirect("login")->withSuccess('Login details are not valid');
     }
-
     /**
      * Registration page
      */
     public function createUser()
     {
         //Đường dẫn đến trang tạo người dùng
-        return view('crud_user.registration');
+        return view('auth.registration');
     }
 
     /**
@@ -69,14 +68,6 @@ class CrudUserController extends Controller
         ]);
 
         $data = $request->all();
-
-        // Kiểm tra xem 'phone' có được gửi từ form hay không
-        if (!empty($data['phone'])) {
-            // Nếu 'phone' không được gửi từ form, gán giá trị mặc định hoặc null cho 'phone'
-            $data['phone'] = null;
-        }
-
-
         // Xử lý tải lên hình ảnh
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
@@ -103,8 +94,8 @@ class CrudUserController extends Controller
         //Lấy id của người dùng cần đọc và tìm đúng id đó
         $user_id = $request->get('id');
         $user = User::find($user_id);
-        //Đường dẫn đến trang view với biến truyền đi là messi
-        return view('crud_user.read', ['messi' => $user]);
+        //Đường dẫn đến trang view với biến truyền đi là user
+        return view('crud_user.read', ['user' => $user]);
     }
 
     /**

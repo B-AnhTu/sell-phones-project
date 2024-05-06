@@ -12,10 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('carts', function (Blueprint $table) {
-            $table->id();
+            //$table->id();
+            $table->increments('cart_id');
             $table->integer('user_id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Tạo khóa ngoại với bảng users
-
+            $table->integer('phone_id');
+            $table->integer('quantity');
+            $table->double('total_price');
             $table->timestamps();
         });
     }

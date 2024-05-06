@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cartdetails', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id'); // Mã hãng kiểu int
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade'); // Tạo khóa ngoại với bảng users
-
-            $table->unsignedBigInteger('phone_id'); // Mã hãng kiểu int
-            $table->foreign('phone_id')->references('id')->on('phones')->onDelete('cascade'); // Tạo khóa ngoại với bảng phones
-            $table->integer('quantity');
+        Schema::create('cart_details', function (Blueprint $table) {
+            //$table->id();
+            $table->increments('cart_detail_id');
+            $table->integer('user_id');
+            $table->integer('phone_id'); //Mã phone 
+            $table->integer('quantities');
+            $table->integer('total_price');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cartdetails');
+        Schema::dropIfExists('cart_details');
     }
 };

@@ -1,5 +1,13 @@
 @extends('dashboard')
-
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+</style>
 @section('content')
 <div class="container">
     <div class="row">

@@ -1,11 +1,5 @@
 /* Login  */
-body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-  }
+
 .form-container {
     width: 320px;
     border-radius: 0.75rem;

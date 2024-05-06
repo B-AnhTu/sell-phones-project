@@ -64,4 +64,10 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
+    /**
+     * Xác thực người dùng có quyền truy cập admin không
+     */
+    protected $routeMiddleware = [
+        'admin' => \App\Http\Middleware\CheckUserRole::class,
+    ];
 }

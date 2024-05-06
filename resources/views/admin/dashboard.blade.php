@@ -15,7 +15,7 @@
         <div class="container me-auto">
             <div class="row">
                 <div class="col">
-                    <img class="img-fluid" src="{{asset('images/logo.png')}}" alt="">
+                    <img class="img-fluid logo" src="{{asset('images/logo.png')}}" alt="">
                 </div>
             </div>
         </div>
@@ -56,8 +56,7 @@
                           </form>
                           <!-- Các icon điều hướng -->
                           <div class="navbar-action">
-                            <a class="navbar-icon" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
-                            <a class="navbar-icon" href="#"><i class="fa-solid fa-user"></i></a>
+                            <a class="navbar-icon" href="{{ route('admin.profile')}}"><i class="fa-solid fa-user mx-2"></i>Admin</a>
                           </div>
                         </div>
                       </nav>
@@ -65,6 +64,7 @@
             </div>
         </div>
     </header>
+    @yield('content')
     <footer>
         <div class="container bg-gray mt-3">
             <div class="row">
@@ -78,6 +78,7 @@
             </div>
         </div>
     </footer>
+    <script src="{{ asset('js/scripts.js')}}"></script>
     <script src="https://kit.fontawesome.com/8d630c67fe.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
