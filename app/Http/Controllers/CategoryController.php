@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -11,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        
+        $categories = DB::table('categories')->orderBy('categories.category_id', 'ASC')->paginate(3);
+        return view('admin.category.listcategory', compact('categories'));
     }
 
     /**
@@ -19,7 +22,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        $categories = DB::table('categories')->select('*')->get();
+        return view('admin.category.create', ['categories' => $categories]);
+
     }
 
     /**

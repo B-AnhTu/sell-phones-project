@@ -22,4 +22,8 @@
             @endforeach
         </div>
     </div>
+<div class="col mt-3">
+    <!-- Hiển thị thanh phân trang -->
+    {{ $phones->links('pagination::bootstrap-4') }}
+</div>
 @endsection

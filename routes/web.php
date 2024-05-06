@@ -16,7 +16,7 @@ use App\Http\Controllers\DashBoardController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// User
+// Login, logout, register
 Route::get('dashboard', [UserController::class, 'dashboard']);
 
 Route::get('login', [UserController::class, 'login'])->name('login');

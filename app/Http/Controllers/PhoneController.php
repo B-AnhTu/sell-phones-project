@@ -120,6 +120,7 @@ class PhoneController extends Controller
             'manufacturer_id' => $data['manufacturer_id'],
             'category_id' => $data['category_id'],
         ]);
+        $phone->save();
 
         return redirect()->route('admin.phone.list')->with('success', 'Sản phẩm đã được thêm thành công.');
     }
