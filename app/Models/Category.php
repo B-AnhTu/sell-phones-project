@@ -17,4 +17,9 @@ class Category extends Model
     protected $primaryKey = 'category_id';
 
     public $incrementing = true;
+
+    public function phones()
+    {
+        return $this->hasMany(Phone::class, 'category_id');
+    }
 }
