@@ -21,8 +21,11 @@ return new class extends Migration
             $table->double('price');
             $table->integer('status');
             $table->integer('purchases')->default(0);
-            $table->integer('manu_id');
-            $table->integer('category_id');
+            $table->unsignedInteger('manu_id');
+            $table->unsignedInteger('category_id');
+            //Khóa ngoại
+            $table->foreign('manu_id')->references('manu_id')->on('manufacturers')->onDelete('cascade');
+            $table->foreign('category_id')->references('category_id')->on('categories')->onDelete('cascade');
 
             $table->timestamps();
         });

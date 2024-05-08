@@ -14,10 +14,14 @@ return new class extends Migration
         Schema::create('cart_phones', function (Blueprint $table) {
             //$table->id();
             $table->increments('cart_phone_id');
-            $table->integer('cart_id');
-            $table->integer('phone_id');
+            $table->unsignedInteger('cart_id');
+            $table->unsignedInteger('phone_id');
             $table->integer('quantity');
             $table->timestamps();
+
+            //Khóa ngoại
+            $table->foreign('cart_id')->references('cart_id')->on('carts')->onDelete('cascade');
+            $table->foreign('phone_id')->references('phone_id')->on('phones')->onDelete('cascade');
         });
     }
 

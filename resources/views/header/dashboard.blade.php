@@ -36,8 +36,9 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                       <li><a class="dropdown-item" href="#">Trang chủ</a></li>
-                                      <li><a class="dropdown-item" href="#">Danh mục</a></li>
-                                      <li><a class="dropdown-item" href="#">Hãng điện thoại</a></li>
+                                      @foreach($categories as $category)
+                                        <li><a class="dropdown-item" href="{{route('phone.index', $category->id)}}">{{$category->name}}</a></li>
+                                      @endforeach
 
                                       <li><hr class="dropdown-divider"></li>
                                       @guest
@@ -62,6 +63,7 @@
                         </div>
                       </nav>
                 </div>
+                
             </div>
         </div>
     </header>
@@ -81,6 +83,7 @@
     </footer>
     <script src="{{ asset('js/scripts.js')}}"></script>
     <script src="https://kit.fontawesome.com/8d630c67fe.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
 </body>
 </html>
+

@@ -14,13 +14,16 @@ return new class extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             //$table->id();
             $table->increments('profile_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('address');
-            $table->string('phone');
+            $table->string('phone_number');
             $table->string('image')->nullable();
             $table->string('gender');
-            $table->string('date_of_birth');
+            $table->date('date_of_birth');
             $table->timestamps();
+
+            //Khóa ngoại
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

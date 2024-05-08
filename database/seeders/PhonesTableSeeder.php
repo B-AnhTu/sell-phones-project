@@ -14,6 +14,19 @@ class PhonesTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('phones')->insert([
+            'phone_name' => 'Iphone 5s',
+            'phone_image' => 'iphone5s.png',
+            'description' => 'Điện thoại iphone',
+            'quantities' => 62,
+            'price' => 3999000,
+            'status' => 1,
+            'purchases' => 0,
+            'manu_id' => 2,
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('phones')->insert([
             'phone_name' => 'Iphone 6s',
             'phone_image' => 'iphone6.png',
             'description' => 'Điện thoại iphone',
@@ -87,6 +100,35 @@ class PhonesTableSeeder extends Seeder
             'status' => 1,
             'purchases' => 0,
             'manu_id' => 3,
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('phones')->insert([
+            'phone_name' => 'Máy tính HP',
+            'phone_image' => 'maytinhHP.png',
+            'description' => 'Windows 11**
+            Bộ xử lý lên tới Intel® Core™ Ultra 7 155H (lên tới 4,8 GHz với công nghệ Intel® Turbo Boost)2
+            Màn hình cảm ứng cải tiến IMAX OLED 14" (35,6 cm)3
+            1,56kg4',
+            'quantities' => 62,
+            'price' => 5699000,
+            'status' => 1,
+            'purchases' => 0,
+            'manu_id' => 3,
+            'category_id' => 1,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+        DB::table('phones')->insert([
+            'phone_name' => 'Iphone 15 Pro',
+            'phone_image' => 'iphone15pro.jpg',
+            'description' => 'Điện thoại iphone',
+            'quantities' => 62,
+            'price' => 5699000,
+            'status' => 1,
+            'purchases' => 0,
+            'manu_id' => 2,
             'category_id' => 1,
             'created_at' => now(),
             'updated_at' => now()

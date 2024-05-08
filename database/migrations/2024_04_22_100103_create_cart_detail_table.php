@@ -14,11 +14,15 @@ return new class extends Migration
         Schema::create('cart_details', function (Blueprint $table) {
             //$table->id();
             $table->increments('cart_detail_id');
-            $table->integer('user_id');
-            $table->integer('phone_id'); //Mã phone 
+            $table->unsignedInteger('cart_id');
+            $table->unsignedInteger('phone_id'); //Mã phone 
             $table->integer('quantities');
-            $table->integer('total_price');
+            $table->decimal('total_price', 8, 2);
             $table->timestamps();
+
+            // Thiết lập khóa ngoại
+            $table->foreign('cart_id')->references('cart_id')->on('carts')->onDelete('cascade');
+            $table->foreign('phone_id')->references('phone_id')->on('phones')->onDelete('cascade');
         });
     }
 

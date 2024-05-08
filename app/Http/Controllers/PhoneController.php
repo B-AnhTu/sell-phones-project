@@ -7,6 +7,7 @@ use Database\Database;
 use App\Models\Phone;
 use App\Models\Category;
 use App\Models\Manufacturer;
+use App\Models\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,8 +24,21 @@ class PhoneController extends Controller
      */
     public function index()
     {
+        // Truy vấn dữ liệu từ bảng phones
         $phones = DB::table('phones')->orderBy('phones.phone_id', 'desc')->paginate(4);
-        return view('phones.index', compact('phones'));
+
+        // Truy vấn dữ liệu từ các bảng khác
+        $users = User::all();
+        $categories = Category::all();
+        $manufacturers = Manufacturer::all();
+
+        // Truyền dữ liệu vào view
+        return view('phones.index', [
+            'phones' => $phones,
+            'users' => $users,
+            'categories' => $categories,
+            'manufacturers' => $manufacturers
+        ]);
 
     }
 
@@ -36,17 +50,26 @@ class PhoneController extends Controller
     public function search(Request $request)
     {
         $searchTerm = $request->input('search');
-        $phone = Phone::where('phone_name', 'like', '%' . $searchTerm . '%')
+        $phones = Phone::where('phone_name', 'like', '%' . $searchTerm . '%')
                         ->orWhere('description', 'like', '%' . $searchTerm . '%')
                         ->with('category', 'manufacturer')
-                        ->get()
                         ->paginate(4);
 
-        return view('phones.search', compact('phone'));
+        return view('phones.search', compact('phones'));
+    }
+    /**
+     * Chi tiết sản phẩm
+     * 
+     */
+    public function show($id)
+    {
+        $phone = Phone::with('category', 'manufacturer')->findOrFail($id);
+        return view('phones.show', compact('phone'));
     }
     /**
      * Hiển thị sản phẩm theo tên.
      */
+
     public function showByName($name)
     {
         $phone = DB::table('phones')::where('phone_name', $name)->get();
@@ -75,6 +98,8 @@ class PhoneController extends Controller
         }
         return view('phones.index', compact('phones'));
     }
+
+    // Admin
 
     /**
      * Hiển thị form thêm sản phẩm.
@@ -128,15 +153,6 @@ class PhoneController extends Controller
     /**
      * Hiển thị form sửa sản phẩm.
      */
-    public function edit($id)
-    {
-        $phone = Phone::findOrFail($id);
-        return view('phones.edit', compact('phone'));
-    }
-
-    /**
-     * Form update phone page.
-     */
     public function updatePhone(Request $request)
     {
         //Tìm id của user cần sửa
@@ -150,52 +166,52 @@ class PhoneController extends Controller
      */
     public function postUpdatePhone(Request $request)
     {
-        //Lấy tất cả thông tin trong database
-        $input = $request->all();
         // Xác thực dữ liệu
         $validated = $request->validate([
-            'phone_name' => 'required|unique:phones|max:100',
-            'phone_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'phone_name' => 'required|unique:phones,phone_name,' . $request->id . '|max:100',
+            'phone_image' => 'nullable|image|mimes:jpeg,png,svg|max:2048',
             'description' => 'required|max:100',
-            'price' =>'required|numeric',
-            'quantities' =>'required|numeric',
-            'purchases' =>'required|numeric',
-            'status' =>'required|numeric',
-            'manufacturer_id' =>'required|numeric',
-            'category_id' =>'required|numeric',
-            
+            'price' => 'required|numeric',
+            'quantities' => 'required|numeric',
+            'purchases' => 'required|numeric',
+            'status' => 'required|numeric',
+            'manufacturer_id' => 'required|numeric',
+            'category_id' => 'required|numeric',
         ]);
+
         // Tải hình ảnh lên
         if ($request->hasFile('phone_image')) {
-            $imageName = time().'.'.$request->image->extension();  
-            $request->image->move(public_path('images'), $imageName);
+            $imageName = time() . '.' . $request->phone_image->extension();
+            $request->phone_image->move(public_path('images'), $imageName);
         }
 
         // Cập nhật dữ liệu sản phẩm
         $phone = Phone::find($request->id);
-        $phone->name = $request->name;
-        $phone->email = $request->email;
-        $phone->phone = $request->phone;
-        $phone->password = bcrypt($request->password);
+        $phone->phone_name = $validated['phone_name'];
+        $phone->description = $validated['description'];
+        $phone->price = $validated['price'];
+        $phone->quantities = $validated['quantities'];
+        $phone->purchases = $validated['purchases'];
+        $phone->status = $validated['status'];
+        $phone->manufacturer_id = $validated['manufacturer_id'];
+        $phone->category_id = $validated['category_id'];
         if ($request->hasFile('phone_image')) {
-            $phone->image = $imageName;
+            $phone->phone_image = $imageName;
         }
         $phone->save();
 
+        return redirect()->route('admin.phone.list')->with('success', 'Thông tin sản phẩm đã được cập nhật thành công.');
+    }
+    /**
+     * Hiển thị danh sách sản phẩm admin.
+     */
+    public function adminIndex()
+    {
+        // Truy vấn lấy tất cả điện thoại, có thể thêm phân trang nếu cần
+        $phones = Phone::orderBy('created_at', 'desc')->paginate(10);
 
-        // $user = User::find($input['id']);
-        // $user->name = $input['name'];
-        // $user->email = $input['email'];
-        // $user->password = $input['password'];
-        // $user->save();
-
-        return redirect("list")->withSuccess('You have signed-in');
-
-        // Cập nhật sản phẩm
-        //$phone = Phone::findOrFail($id);
-        //$phone->update($validated);
-
-        //return redirect()->route('phones.index')->with('success', 'Thông tin sản phẩm đã được cập nhật thành công.');
+        // Trả về view quản lí điện thoại cho admin
+        return view('admin.phone.list', compact('phones'));
     }
 
     /**
@@ -204,18 +220,20 @@ class PhoneController extends Controller
     public function deletePhone(Request $request)
     {
         $phone_id = $request->get('id');
-        $phone = Phone::destroy($phone_id);
+        
+        // Kiểm tra xem điện thoại có tồn tại không
+        $phone = Phone::find($phone_id);
+        if (!$phone) {
+            return redirect()->route('admin.phone.list')->with('error', 'Sản phẩm không tồn tại.');
+        }
 
-        return redirect()->route('phones.index')->with('success', 'Sản phẩm đã được xóa thành công.');
+        // Thực hiện xóa điện thoại
+        try {
+            $phone->delete();
+            return redirect()->route('admin.phone.list')->with('success', 'Sản phẩm đã được xóa thành công.');
+        } catch (\Exception $e) {
+            // Xử l lỗi khi xóa không thành công
+            return redirect()->route('admin.phone.list')->with('error', 'Xóa sản phẩm không thành công.');
+        }
     }
-
-    /**
-     * Tìm kiếm sản phẩm theo tên.
-     */
-    // public function search(Request $request)
-    // {
-    //     $keyword = $request->input('keyword');
-    //     $phones = Phone::where('name', 'like', '%' . $keyword . '%')->get();
-    //     return view('phones.index', compact('phones'));
-    // }
 }

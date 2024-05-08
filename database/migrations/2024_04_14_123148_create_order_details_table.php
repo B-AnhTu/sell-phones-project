@@ -12,8 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('order_details', function (Blueprint $table) {
-            $table->id();
-            
+            //$table->id();
+            $table->increments('order_detail_id');
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('phone_id');
+            $table->integer('quantity');
+
+            //Khóa ngoại
+            $table->foreign('order_id')->references('order_id')->on('orders')->onDelete('cascade');
+            $table->foreign('phone_id')->references('phone_id')->on('phones')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

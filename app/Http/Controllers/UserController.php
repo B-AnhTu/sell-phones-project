@@ -56,35 +56,35 @@ class UserController extends Controller
      */
     public function postUser(Request $request)
     {
-        
-        
-        //Kiểm tra validation cho các trường dữ liệu
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
+        // Kiểm tra validation cho các trường dữ liệu
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'phone' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'phone' => 'nullable|string|unique:users,phone|regex:/^\+?[1-9]\d{1,14}$/',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,svg,gif|max:2048',
         ]);
 
-        $data = $request->all();
         // Xử lý tải lên hình ảnh
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
             $request->image->move(public_path('images'), $imageName);
-            $data['image'] = $imageName;
+            $validatedData['image'] = $imageName;
+        } else {
+            $validatedData['image'] = null; // Đảm bảo rằng trường image không bị lỗi khi không có file được tải lên
         }
 
         // Tạo người dùng mới
-        $check = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'phone' => $data['phone'],
-            'image' => $data['image'],
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'phone' => $validatedData['phone'],
+            'image' => $validatedData['image'],
         ]);
-        //Trở lại trang login và hiển thị thông báo người dùng đăng ký thành công
-        return redirect("login")->withSuccess('User registered successfully!');
+
+        // Trở lại trang login và hiển thị thông báo người dùng đăng ký thành công
+        return redirect("login")->with('success', 'User registered successfully!');
     }
 
     /**
@@ -176,6 +176,18 @@ class UserController extends Controller
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');
+    }
+    // public function searchUser(Request $request)
+    // {
+    //     $keyword = $request->keyword;
+    //     $users = User::where('name', 'LIKE', '%' . $keyword . '%')->paginate(3);
+    //     return view('shop/shop', compact('users'));
+    // }
+    public function searchUserAdmin(Request $request)
+    {
+        $keyword = $request->keyword;
+        $users = User::where('name', 'LIKE', '%' . $keyword . '%')->paginate(4);
+        return view('admin.user.list', compact('users'));
     }
 
     /**

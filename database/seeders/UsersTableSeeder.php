@@ -19,31 +19,24 @@ class UsersTableSeeder extends Seeder
             'user_fullname' => 'Bùi Anh Tú',
             'username' => 'anhtu',
             'email' => 'anhtu@gmail.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('123456'),
             'user_type' => 1,
             'avatar' => null,
             'created_at' => now(),
             'updated_at' => now()
         ]);
-        DB::table('users')->insert([
-            'user_fullname' => 'Nguyễn Thanh Toàn',
-            'username' => 'thanhtoan123',
-            'email' => 'thanhtoan123@gmail.com',
-            'password' => Hash::make('password'),
-            'user_type' => 0,
-            'avatar' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
-        DB::table('users')->insert([
-            'user_fullname' => 'Hồ Cẩm Ty',
-            'username' => 'hocamty',
-            'email' => 'hocamty@gmail.com',
-            'password' => Hash::make('password'),
-            'user_type' => 0,
-            'avatar' => null,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        for($i = 1; $i <= 10; $i++){
+            DB::table('users')->insert([
+                'user_fullname' => 'User'.$i,
+                'username' => 'user'.$i,
+                'email' => 'user'.$i.'@gmail.com',
+                'password' => Hash::make('123456'),
+                'user_type' => 0,
+                'avatar' => 'demouser.jpg',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
+        
     }
 }

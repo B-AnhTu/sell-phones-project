@@ -28,6 +28,11 @@ class CategoriesTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        DB::table('categories')->insert([
+            'category_name' => 'Máy tính xách tay',
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
 
     }
 }

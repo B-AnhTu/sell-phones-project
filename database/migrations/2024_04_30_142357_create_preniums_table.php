@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('preniums', function (Blueprint $table) {
             //$table->id();
             $table->increments('prenium_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('name', 100);
             $table->string('email')->unique();
             $table->string('password');
@@ -22,6 +22,9 @@ return new class extends Migration
             $table->string('phone');
             $table->string('favorite');
             $table->timestamps();
+
+            //Khóa ngoại
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -23,5 +23,9 @@
             </div>
         </div>
     </div>
+    <div class="pagination">
+        {{$phones->links()}}
+    </div>
 
 @endsection
+
