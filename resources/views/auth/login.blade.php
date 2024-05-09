@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('header.dashboard')
 <style>
     body {
         display: flex;
@@ -56,7 +56,7 @@
             </button>
         </div>
         <p class="signup">Don't have an account?
-            <a rel="noopener noreferrer" href="#" class="">Sign up</a>
+            <a rel="noopener noreferrer" href="{{ route('user.createUser') }}" class="">Sign up</a>
         </p>
     </div>
     

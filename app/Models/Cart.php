@@ -11,9 +11,7 @@ class Cart extends Model
 
     protected $fillable = [
         'user_id',
-        'phone_id',
-        'quantity',
-        'price'
+        'total_price'
     ];
 
     protected $table = 'carts';
@@ -25,8 +23,9 @@ class Cart extends Model
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function phone(){
-        return $this->hasMany(Phone::class, 'phone_id');
+    public function cartDetails(){
+        return $this->hasMany(CartDetail::class, 'cart_id');
     }
+
 
 }

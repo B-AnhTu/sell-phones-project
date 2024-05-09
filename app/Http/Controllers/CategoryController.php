@@ -17,6 +17,12 @@ class CategoryController extends Controller
         return view('admin.category.listcategory', compact('categories'));
     }
 
+    public function show($id)
+    {
+        $categories = DB::table('categories')->select('*')->where('category_id', $id)->get();
+        return view('admin.category.listcategory', compact('categories'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -38,10 +44,6 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.

@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('header.dashboard')
 
 @section('content')
 <div class="container p-5 mt-3">

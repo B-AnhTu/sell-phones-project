@@ -35,9 +35,9 @@
                                         <i class="fa-solid fa-bars fs-3"></i>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      <li><a class="dropdown-item" href="#">Trang chủ</a></li>
+                                      <li><a class="dropdown-item" href="{{route('home')}}">Trang chủ</a></li>
                                       @foreach($categories as $category)
-                                        <li><a class="dropdown-item" href="{{route('phone.index', $category->id)}}">{{$category->name}}</a></li>
+                                          <li><a class="dropdown-item" href="{{ route('categories.show', ['id' => $category->id]) }}">{{$category->name}}</a></li>
                                       @endforeach
 
                                       <li><hr class="dropdown-divider"></li>

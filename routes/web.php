@@ -4,7 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PhoneController;
 use App\Http\Controllers\DashBoardController;
-
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ManufacturerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,12 +40,20 @@ Route::get('signout', [UserController::class, 'signOut'])->name('signout');
 // Route::put('/phones/{id}', [PhoneController::class, 'update'])->name('phones.update');
 
 // Route hiển thị danh sách sản phẩm
-Route::get('/phones', [PhoneController::class, 'index'])->name('phones.index');
+Route::get('/phones', [PhoneController::class, 'index'])->name('home');
 
 // Route tìm kiếm sản phẩm
 Route::get('/phones/search', [PhoneController::class, 'search'])->name('phones.search');
 
 // Route hiển thị sản phẩm theo danh mục
+Route::get('/categories', [PhoneController::class, 'showByCategory'])->name('categories.show');
+
+//Route giỏ hàng
+Route::get('/carts', [CartController::class, 'index'])->name('carts.index');
+Route::post('/carts/add', [CartController::class, 'add'])->name('carts.add');
+Route::post('/carts/update', [CartController::class, 'update'])->name('carts.update');
+Route::post('/carts/remove', [CartController::class, 'remove'])->name('carts.remove');
+Route::get('/carts/search', [CartController::class, 'search'])->name('carts.search');
 
 
 
@@ -66,4 +76,25 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('list', [UserController::class, 'listUser'])->name('user.list');
 
+    //Phone routes
+    Route::get('phones/index', [PhoneController::class, 'adminIndex'])->name('phones.adminIndex');
+    
+    Route::get('phones/add', [PhoneController::class, 'createPhone'])->name('phones.addPhone');
+    Route::post('phones/add', [PhoneController::class, 'postCreatePhone'])->name('phones.postCreatePhone');
+    
+    Route::get('phones/update', [PhoneController::class, 'updatePhone'])->name('phones.updatePhone');
+    Route::post('phones/update', [PhoneController::class, 'postUpdatePhone'])->name('phones.postUpdatePhone');
+    
+    Route::delete('phones/delete', [PhoneController::class, 'deletePhone'])->name('phones.deletePhone');
+
+    //Category routes
+    Route::get('categories/index', [CategoryController::class, 'index'])->name('categories.index');
+    
+    Route::get('categories/add', [CategoryController::class, 'createCategory'])->name('categories.createCategory');
+    Route::post('categories/add', [CategoryController::class, 'postCreateCategory'])->name('categories.postCreateCategory');
+
+    Route::get('categories/update', [CategoryController::class, 'updateCategory'])->name('categories.updateCategory');
+    Route::post('categories/update', [CategoryController::class, 'postUpdateCategory'])->name('categories.postUpdateCategory');
+
+    Route::delete('categories/delete', [CategoryController::class, 'deleteCategory'])->name('categories.deleteCategory');
 });

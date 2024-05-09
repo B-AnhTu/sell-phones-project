@@ -79,10 +79,12 @@ class PhoneController extends Controller
     /**
      * Hiển thị sản phẩm theo danh mục.
      */
-    public function showByCategory($categoryId)
+    public function showByCategory($id)
     {
-        $phones = Phone::where('category_id', $categoryId)->get();
-        return view('phones.search', compact('phones'));
+        $category = Category::with('phones')->findOrFail($id); // Eager load phones with the category
+        $phones = $category->phones;
+
+        return view('phones.index', compact('category', 'phones'));
     }
 
     /**
@@ -104,7 +106,7 @@ class PhoneController extends Controller
     /**
      * Hiển thị form thêm sản phẩm.
      */
-    public function createProduct()
+    public function createPhone()
     {
         $categories = DB::table('categories')->select('*')->get();
         $manufacturers = DB::table('manufacturers')->select('*')->get();
@@ -115,7 +117,7 @@ class PhoneController extends Controller
     /**
      * Lưu sản phẩm mới vào cơ sở dữ liệu.
      */
-    public function postCreateProduct(Request $request)
+    public function postCreatePhone(Request $request)
     {
         // Xác thực dữ liệu
         $validatedData = $request->validate([
