@@ -16,7 +16,7 @@ return new class extends Migration
             $table->increments('phone_id');            
             $table->string('phone_name', 100);
             $table->string('phone_image')->nullable();
-            $table->string('description', 100);
+            $table->text('description');
             $table->integer('quantities')->default(0);
             $table->double('price');
             $table->integer('status');

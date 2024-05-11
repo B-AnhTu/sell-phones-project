@@ -37,7 +37,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                       <li><a class="dropdown-item" href="{{route('home')}}">Trang chủ</a></li>
                                       @foreach($categories as $category)
-                                          <li><a class="dropdown-item" href="{{ route('categories.show', ['id' => $category->id]) }}">{{$category->name}}</a></li>
+                                          <li><a class="dropdown-item" href="#">{{$category->category_name}}</a></li>
                                       @endforeach
 
                                       <li><hr class="dropdown-divider"></li>
@@ -63,7 +63,15 @@
                         </div>
                       </nav>
                 </div>
-                
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="dasboard-image-container">
+                    @foreach($manufacturers as $manufacturer)
+                        <a class="hang" href="#"><img class="dashboard-image" src="{{asset('images/'.$manufacturer->image)}}" alt=""></a>
+                    @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </header>

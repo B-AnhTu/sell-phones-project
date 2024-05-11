@@ -1,17 +1,18 @@
-@extends('dashboard')
+@extends('admin.dashboard')
 
 @section('content')
     <main class="login-form">
+        <h3 class="text-center mt-3">Quản lý người dùng</h3>
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center my-3">
                 <table>
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Username</th>
                             <th>Email</th>
-                            <th>Phone</th>
-                            <th>Hinh anh</th>
+                            <th>Loại tài khoản</th>
+                            <th>Hinh ảnh</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -19,14 +20,14 @@
                         @foreach($users as $user)
                             <tr>
                                 <th>{{ $user->id }}</th>
-                                <th>{{ $user->name }}</th>
+                                <th>{{ $user->user_fullname }}</th>
                                 <th>{{ $user->email }}</th>
-                                <th>{{ $user->phone }}</th>
-                                <th><img class="img-list" src="{{ asset('images/' . $user->image) }}" alt="User Image"></th>
+                                <th>{{ $user->user_type == 1 ? 'Admin' : 'Người dùng' }}</th>
+                                <th><img class="img-list table-img" src="{{ asset('images/' . $user->avatar) }}" alt="User Image"></th>
                                 <th>
-                                    <a href="{{ route('user.readUser', ['id' => $user->id]) }}">View</a> |
-                                    <a href="{{ route('user.updateUser', ['id' => $user->id]) }}">Edit</a> |
-                                    <a href="{{ route('user.deleteUser', ['id' => $user->id]) }}">Delete</a>
+                                    <a href="{{ route('user.readUser', ['id' => $user->id]) }}"><i class="fa-solid fa-eye"></i></a> |
+                                    <a href="{{ route('user.updateUser', ['id' => $user->id]) }}"><i class="fa-solid fa-pen"></i></a> |
+                                    <a href="{{ route('user.deleteUser', ['id' => $user->id]) }}"><i class="fa-solid fa-trash"></i></a>
                                 </th>
                             </tr>
                         @endforeach

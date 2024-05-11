@@ -1,4 +1,4 @@
-@extends('dashboard')
+@extends('admin.dashboard')
 
 @section('content')
     <main class="signup-form">
@@ -12,11 +12,11 @@
                                 @csrf
                                 <input name="id" type="hidden" value="{{$user->id}}">
                                 <div class="form-group mb-3">
-                                    <input type="text" placeholder="Name" id="name" class="form-control" name="name"
-                                           value="{{ $user->name }}"
+                                    <input type="text" placeholder="Name" id="user_fullname" class="form-control" name="user_fullname"
+                                           value="{{ $user->user_fullname }}"
                                            required autofocus>
-                                    @if ($errors->has('name'))
-                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    @if ($errors->has('user_fullname'))
+                                        <span class="text-danger">{{ $errors->first('user_fullname') }}</span>
                                     @endif
                                 </div>
                                 <div class="form-group mb-3">

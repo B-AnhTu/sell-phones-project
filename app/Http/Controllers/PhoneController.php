@@ -25,19 +25,12 @@ class PhoneController extends Controller
     public function index()
     {
         // Truy vấn dữ liệu từ bảng phones
-        $phones = DB::table('phones')->orderBy('phones.phone_id', 'desc')->paginate(4);
-
+        $phones = Phone::orderBy('phone_id', 'desc')->paginate(4);
         // Truy vấn dữ liệu từ các bảng khác
-        $users = User::all();
-        $categories = Category::all();
-        $manufacturers = Manufacturer::all();
 
         // Truyền dữ liệu vào view
-        return view('phones.index', [
+        return view('home', [
             'phones' => $phones,
-            'users' => $users,
-            'categories' => $categories,
-            'manufacturers' => $manufacturers
         ]);
 
     }

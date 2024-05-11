@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Phone;
 use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\CartDetail;
@@ -15,7 +16,9 @@ class CartController extends Controller
     public function index()
     {
         $user_id = Auth::id(); // Lấy ID của người dùng hiện tại
-        $carts = Cart::with('cartDetails')->where('user_id', $user_id)->get();
+        $cart = session()->get('cart');
+        //return view('cart', compact('cart'));
+        //$carts = Cart::with('cartDetails')->where('user_id', $user_id)->get();
 
         return view('carts.index', compact('carts'));
     }
@@ -30,27 +33,22 @@ class CartController extends Controller
             'quantity' => 'required|integer|min:1'
         ]);
 
-        $cart = Cart::firstOrCreate(
-            ['user_id' => Auth::id()],
-            ['total_price' => 0] // Giá trị khởi tạo
-        );
+        $phone = Phone::findOrFail($request->phone_id);
+        $cart = session()->get('cart', []);
 
-        $cartDetail = new CartDetail([
-            'cart_id' => $cart->id,
-            'phone_id' => $request->phone_id,
-            'quantities' => $request->quantity,
-            'total_price' => 0 // Sẽ được cập nhật sau
-        ]);
+        // Kiểm tra sản phẩm đã có trong giỏ hàng chưa
+        if (isset($cart[$phone->id])) {
+            $cart[$phone->id]['quantity'] += $request->quantity;
+        } else {
+            $cart[$phone->id] = [
+                "name" => $phone->name,
+                "quantity" => $request->quantity,
+                "price" => $phone->price,
+                "total_price" => $phone->price * $request->quantity
+            ];
+        }
 
-        // Giả sử có một phương thức để lấy giá của phone
-        $price = Phone::find($request->phone_id)->price;
-        $cartDetail->total_price = $price * $request->quantity;
-        $cartDetail->save();
-
-        // Cập nhật tổng giá trị giỏ hàng
-        $cart->total_price += $cartDetail->total_price;
-        $cart->save();
-
+        session()->put('cart', $cart);
         return redirect()->route('carts.index')->with('success', 'Product added to cart successfully!');
     }
 

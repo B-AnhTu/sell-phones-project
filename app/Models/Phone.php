@@ -13,12 +13,9 @@ class Phone extends Model
     
     protected $fillable = [
         'phone_name',
-        'phone_image',
         'description',
         'quantities',
         'price',
-        'status',
-        'purchases',
         'manu_id',
         'category_id'
     ];

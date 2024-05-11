@@ -14,11 +14,11 @@ class PreniumsTableSeeder extends Seeder
     public function run(): void
     {
         //
-        DB::table('preniums')->insert([
-            'user_id' => 1,
-            'name' => 'Hội viên',
-            'email' => 'thanhvien@gmail.com',
+        // DB::table('preniums')->insert([
+        //     'user_id' => 1,
+        //     'name' => 'Hội viên',
+        //     'email' => 'thanhvien@gmail.com',
 
-        ]);
+        // ]);
     }
 }

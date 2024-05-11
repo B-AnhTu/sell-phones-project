@@ -1,17 +1,17 @@
 @extends('header.dashboard')
 <style>
-    body {
+    .login-form {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 150vh;
         margin: 0;
     }
 </style>
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col">
+        <div class="col login-form">
             <div class="form-container align-item-center">
         <p class="title">Login</p>
         <form class="form" action="{{ route('user.authUser') }}" method="POST">

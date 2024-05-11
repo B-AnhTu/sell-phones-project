@@ -95,7 +95,7 @@ class UserController extends Controller
         $user_id = $request->get('id');
         $user = User::find($user_id);
         //Đường dẫn đến trang view với biến truyền đi là user
-        return view('crud_user.read', ['user' => $user]);
+        return view('admin.user.read', ['user' => $user]);
     }
 
     /**
@@ -106,7 +106,7 @@ class UserController extends Controller
         $user_id = $request->get('id');
         $user = User::destroy($user_id);
         //Trở lại trang danh sách
-        return redirect("list")->withSuccess('You have signed-in');
+        return redirect()->route('user.list')->withSuccess('You have signed-in');
     }
 
     /**
@@ -118,7 +118,7 @@ class UserController extends Controller
         $user_id = $request->get('id');
         $user = User::find($user_id);
         //Chuyển đến trang cập nhật
-        return view('crud_user.update', ['user' => $user]);
+        return view('admin.user.update', ['user' => $user]);
     }
 
     /**
@@ -160,7 +160,7 @@ class UserController extends Controller
         // $user->password = $input['password'];
         // $user->save();
 
-        return redirect("list")->withSuccess('You have signed-in');
+        return redirect()->route('user.list')->withSuccess('You have signed-in');
     }
 
     /**
@@ -171,8 +171,8 @@ class UserController extends Controller
         //Kiểm tra người dùng đã đăng nhập chưa, nếu chưa thì chuyển người dùng đến trang login để đăng nhập
         
         if(Auth::check()){
-            $users = User::paginate(3); // Phân trang, mỗi trang có 3 mục
-            return view('crud_user.list', ['users' => $users]);
+            $users = User::paginate(10); // Phân trang, mỗi trang có 3 mục
+            return view('admin.user.list', ['users' => $users]);
         }
 
         return redirect("login")->withSuccess('You are not allowed to access');

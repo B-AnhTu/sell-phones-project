@@ -1,29 +1,32 @@
 @extends('header.dashboard')
 
 @section('content')
-<div class="container p-5 mt-3">
-        <div class="row">
-            @foreach($phones as $phone) 
-            <div class="col-3 bg-gray">
-                <div class="item text-center p-3 m-2">
-                    <img class="img-fluid" src="{{asset('images/'. $phone->phone_image)}}" alt="">
-                    <h5>{{ $phone->phone_name }}</h5>
-                    <p><span>{{ $phone->price}}</span> đồng</p> 
-                    <div class="row">
-                        <div class="col">     
-                            <a href="#" class="addcart">Xem chi tiết</a>
+<div class="container-fluid" style="text-align: center;">
+        <h2>Dach sách sản phẩm</h2>
+        <div class="result card ">
+            <div class="row">
+                @foreach($phones as $phone)
+                <div class="col-md-3 my-4">
+                    <div class="product">
+                        <div class="product-image">
+                            <img class="img-fluid" src="{{ asset('images/' .$phone->phone_image) }}" alt="iPhone 15 Pro">
                         </div>
-                        <div class="col">
-                            <a href="#" class="addcart">Đặt hàng</a>
+                        <div class="product-info">
+                            <h3>{{$phone->phone_name}}</h3>
+                            <p>Giá bán: {{$phone->price}}</p>
+                            <a href="#" class="btn btn-primary">Xem chi tiết</a>
+                            <a href="#" class="btn btn-light">Đặt hàng</a>
                         </div>
                     </div>
-                </div>  
+                </div>
+                @endforeach
             </div>
-            @endforeach
         </div>
     </div>
-<div class="col mt-3">
-    <!-- Hiển thị thanh phân trang -->
-    {{ $phones->links('pagination::bootstrap-4') }}
-</div>
+    <div class="col mt-3">
+        <!-- Hiển thị thanh phân trang -->
+        {{ $phones->links('pagination::bootstrap-5') }}
+    </div>
+
 @endsection
+

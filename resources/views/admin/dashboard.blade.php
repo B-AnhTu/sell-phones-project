@@ -36,9 +36,9 @@
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                       <li><a class="dropdown-item" href="#">Trang chủ</a></li>
-                                      <li><a class="dropdown-item" href="#">Danh mục</a></li>
-                                      <li><a class="dropdown-item" href="#">Hãng điện thoại</a></li>
-
+                                      <li><a class="dropdown-item" href="{{route('phones.adminIndex')}}">QL điện thoại</a></li>
+                                      <li><a class="dropdown-item" href="{{route('categories.index')}}">QL Danh mục</a></li>
+                                      <li><a class="dropdown-item" href="{{route('user.list')}}">QL Người dung</a></li>
                                       <li><hr class="dropdown-divider"></li>
                                       @guest
                                       <li><a class="dropdown-item" href="{{route('login')}}">Đăng nhập</a></li>
