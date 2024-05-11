@@ -52,3 +52,20 @@
     color: white;
     background-color: blue;
 }
+/* Đảm bảo các hình ảnh nằm trên cùng một hàng */
+.dashboard-image-container {
+    display: flex;
+    justify-content: space-between; /* Hoặc sử dụng 'justify-content: space-between;' tùy vào yêu cầu của bạn */
+    align-items: center; /* Căn giữa các hình ảnh theo chiều dọc */
+}
+
+.dashboard-image {
+    width: 100px;
+    height: 60px;
+    margin: 20px 10px;
+}
+.table-img{
+    width: 60px;
+    height: 60px;
+}
+
