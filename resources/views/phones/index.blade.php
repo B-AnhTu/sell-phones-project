@@ -3,11 +3,17 @@
 @section('content')
 <div class="container-fluid" style="text-align: center;">
         <h2>Dach sách sản phẩm</h2>
+        <!-- Hiển thị thông báo thành công -->
+        @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
         <div class="result card ">
             <div class="row">
                 @foreach($phones as $phone)
                 <div class="col-md-3 my-4">
-                    <div class="product">
+                    <div class="product border border-1 p-3">
                         <div class="product-image">
                             <img class="img-fluid" src="{{ asset('images/' .$phone->phone_image) }}" alt="iPhone 15 Pro">
                         </div>
@@ -23,8 +29,9 @@
             </div>
         </div>
     </div>
-    <div class="pagination">
-        {{$phones->links()}}
+    <div class="col mt-3">
+        <!-- Hiển thị thanh phân trang -->
+        {{ $phones->links('pagination::bootstrap-5') }}
     </div>
 
 @endsection
