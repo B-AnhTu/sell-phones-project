@@ -74,9 +74,13 @@ class PhoneController extends Controller
      */
     public function showByCategory($id)
     {
-        $category = Category::with('phones')->findOrFail($id); // Eager load phones with the category
-        $phones = $category->phones;
+        // Tìm danh mục hoặc trả về lỗi nếu không tìm thấy
+        $category = Category::findOrFail($id);
 
+        // Truy vấn các sản phẩm thuộc danh mục và áp dụng phân trang
+        $phones = $category->phones()->paginate(4);
+
+        // Truyền dữ liệu vào view
         return view('phones.index', compact('category', 'phones'));
     }
 
@@ -85,13 +89,14 @@ class PhoneController extends Controller
      */
     public function showByManufacturer($manufacturerId)
     {
-        $phones = Phone::where('manufacturer_id', $manufacturerId)->get();
-        // Điều chỉnh trường status dựa trên giá trị của trường quantities
-        foreach ($phones as $phone) {
-            $phone->status = ($phone->quantities > 0) ? 1 : 0;
-            $phone->save();
-        }
-        return view('phones.index', compact('phones'));
+        // Tìm hãng hoặc trả về lỗi nếu không tìm thấy
+        $manufacturer = Manufacturer::findOrFail($manufacturerId);
+
+        // Truy vấn các sản phẩm thuộc danh mục và áp dụng phân trang
+        $phones = $manufacturer->phones()->paginate(4);
+
+        // Truyền dữ liệu vào view
+        return view('phones.index', compact('manufacturer', 'phones'));
     }
 
     // Admin

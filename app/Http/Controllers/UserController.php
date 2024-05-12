@@ -36,7 +36,7 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
         // Kiểm tra phiên đăng nhập có hợp lệ không, nếu thành công chuyển đường dẫn sang trang list
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('index')
+            return redirect()->intended('/dashboard')
                 ->withSuccess('Signed in');
         }
         //Nếu đăng nhập thất bại thì hiển thị lỗi
@@ -61,7 +61,6 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
-            'phone' => 'nullable|string|unique:users,phone|regex:/^\+?[1-9]\d{1,14}$/',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,svg,gif|max:2048',
         ]);
 
@@ -79,7 +78,6 @@ class UserController extends Controller
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-            'phone' => $validatedData['phone'],
             'image' => $validatedData['image'],
         ]);
 
