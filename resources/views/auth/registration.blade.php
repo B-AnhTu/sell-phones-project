@@ -1,4 +1,4 @@
-@extends('header.dashboard')
+@extends('dashboard')
 
 @section('content')
     <main class="signup-form">
@@ -34,11 +34,6 @@
                                     @if ($errors->has('password'))
                                         <span class="text-danger">{{ $errors->first('password') }}</span>
                                     @endif
-                                </div>
-                                <!-- SĐT -->
-                                <div class="form-group mb-3">
-                                    <input type="text" placeholder="Phone" id="phone" class="form-control"
-                                           name="phone">
                                 </div>
                                 <!-- Ảnh -->
                                 <div class="form-group mb-3">
