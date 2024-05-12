@@ -21,11 +21,11 @@ class CheckUserRole
                 return $next($request);
             } else {
                 // Redirect regular users to a different route
-                return redirect()->route('user.home');
+                return redirect()->route('phone.index')->with('error', 'Bạn không có quyền truy cập vào trang này!');
             }
         } else {
             // Redirect unauthenticated users to login page
-            return redirect()->route('login');
+            return redirect()->route('login')->with('error', 'Bạn phải đăng nhập để truy cập vào trang này!');
         }
     }
 }
