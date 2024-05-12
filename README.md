@@ -31,14 +31,14 @@ Lưu ý:
   php artisan config:clear
   php artisan view:clear
 
-- Tiếp đến là các dòng lệnh như:
-  +  php artisan key:generate (tạo key để chạy được code)
+- Tiếp đến là các dòng lệnh như: (phải theo đúng thứ tự)
   +  php artisan optimize (Cập nhật các thay đổi cho dữ liệu trong laravel)
+  +  php artisan key:generate (tạo key để chạy được code)
   +  php artisan migrate (tạo bảng)
   +  php artisan migrate:rollback (xóa bảng vừa tạo)
   +  php artisan migrate:fresh (Làm hai thao tác xóa rồi tạo lại bảng - nên dùng)
   +  php artisan db:seed (chạy các bảng dữ liệu có sẵn trong seeder, phải gọi trong DatabaseSeeder mới chạy được)
-  +  php artisan serve (Chạy laravel) - Phải khai báo route, controller trước mới có thể chạy demo được.
+  +  php artisan serve (Chạy laravel) - Phải khai báo route, controller và trả về view mới có thể chạy demo được.
 - Để tạo bảng thì gõ: php artisan make:migration create_name_table --create=name
    + make: migration (tạo một bảng mới trong thư mục migrate của laravel)
    + name: tên của bảng
