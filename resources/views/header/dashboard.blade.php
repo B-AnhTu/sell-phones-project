@@ -37,16 +37,17 @@
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                       <li><a class="dropdown-item" href="{{route('home')}}">Trang chủ</a></li>
                                       @foreach($categories as $category)
-                                          <li><a class="dropdown-item" href="#">{{$category->category_name}}</a></li>
+                                          <li><a class="dropdown-item" href="{{route('categories.show', $category->category_id)}}">{{$category->category_name}}</a></li>
                                       @endforeach
 
                                       <li><hr class="dropdown-divider"></li>
                                       @guest
                                       <li><a class="dropdown-item" href="{{route('login')}}">Đăng nhập</a></li>
                                       <li><a class="dropdown-item" href="{{route('user.createUser')}}">Đăng ký</a></li>
-                                      @else
-                                      <li><a class="dropdown-item" href="{{route('signout')}}">Đăng xuất</a></li>
                                       @endguest
+                                      @auth
+                                      <li><a class="dropdown-item" href="{{route('signout')}}">Đăng xuất</a></li>
+                                      @endauth
                                     </ul>
                                   </li>
                             </ul>
@@ -66,11 +67,18 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <div class="dasboard-image-container">
+                    <div class="btn-group" role="group" aria-label="Basic outlined example">
+                    <a href="{{route('home')}}"><button type="button" class="btn btn-outline-primary ">All</button></a>
+                    @foreach($manufacturers as $manufacturer)
+                        <a href="{{route('manufacturers.show', $manufacturer->manu_id)}}"><button type="button" class="btn btn-outline-primary">{{$manufacturer->manufacturer_name}}</button></a>
+                    @endforeach
+                    </div>
+                    </div>
+                    <!-- <div class="dasboard-image-container">
                     @foreach($manufacturers as $manufacturer)
                         <a class="hang" href="#"><img class="dashboard-image" src="{{asset('images/'.$manufacturer->image)}}" alt=""></a>
                     @endforeach
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
