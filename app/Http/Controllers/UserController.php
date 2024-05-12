@@ -100,11 +100,17 @@ class UserController extends Controller
      * Delete user by id
      */
     public function deleteUser(Request $request) {
-        //Lấy id của người dùng cần xóa
         $user_id = $request->get('id');
-        $user = User::destroy($user_id);
-        //Trở lại trang danh sách
-        return redirect()->route('user.list')->withSuccess('You have signed-in');
+    $user = User::find($user_id);
+    // Nếu tìm được user thì trở về trang danh sách và thông báo xóa user thành công
+    if ($user) {
+        $user->delete();
+        return redirect()->route('user.list')->withSuccess('User deleted successfully');
+    } 
+    // Nếu không tìm được user thì trở về trang danh sách và thông báo lỗi
+    else {
+        return redirect()->route('user.list')->withError('User not found');
+    }
     }
 
     /**
@@ -183,8 +189,16 @@ class UserController extends Controller
     // }
     public function searchUserAdmin(Request $request)
     {
-        $keyword = $request->keyword;
-        $users = User::where('name', 'LIKE', '%' . $keyword . '%')->paginate(4);
+        $keyword = $request->input('keyword');
+        $users = User::where('user_fullname', 'LIKE', '%' . $keyword . '%')->paginate(4);
+        return view('admin.user.list', compact('users'));
+    }
+    /**
+     * Sort users
+     */
+    public function sortUser($direction)
+    {
+        $users = User::orderBy('user_fullname', $direction)->paginate(10);
         return view('admin.user.list', compact('users'));
     }
 

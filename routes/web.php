@@ -68,16 +68,17 @@ Route::get('manufacturer/index', [ManufacturerController::class, 'index'])->name
 Route::group(['middleware' => 'role'], function () {
     //Trang chủ Admin
     Route::get('admin/dashboard', [DashBoardController::class, 'adminIndex'])->name('admin.dashboard');
-    Route::get('profile', [DashBoardController::class, 'adminProfile'])->name('admin.profile');
+    Route::get('admin/profile', [DashBoardController::class, 'adminProfile'])->name('admin.profile');
     //User routes
-    Route::get('read', [UserController::class, 'readUser'])->name('user.readUser');
+    Route::get('admin/read', [UserController::class, 'readUser'])->name('user.readUser');
     
-    Route::get('delete', [UserController::class, 'deleteUser'])->name('user.deleteUser');
+    Route::get('admin/delete', [UserController::class, 'deleteUser'])->name('user.deleteUser');
     
-    Route::get('update', [UserController::class, 'updateUser'])->name('user.updateUser');
-    Route::post('update', [UserController::class, 'postUpdateUser'])->name('user.postUpdateUser');
+    Route::get('admin/update', [UserController::class, 'updateUser'])->name('user.updateUser');
+    Route::post('admin/update', [UserController::class, 'postUpdateUser'])->name('user.postUpdateUser');
     
-    Route::get('list', [UserController::class, 'listUser'])->name('user.list');
+    Route::get('admin/list', [UserController::class, 'listUser'])->name('user.list');
+    Route::get('admin/sort/{direction}', [UserController::class, 'sortUser'])->name('user.sort');
     
     //Phone routes
     Route::get('phones/index', [PhoneController::class, 'adminIndex'])->name('phones.adminIndex');
@@ -101,3 +102,10 @@ Route::group(['middleware' => 'role'], function () {
     
     Route::delete('categories/delete', [CategoryController::class, 'deleteCategory'])->name('categories.deleteCategory');
 });
+
+
+//Sắp xếp sản phẩm
+Route::get('phones/sort-by-name', [PhoneController::class, 'sortByPhoneName'])->name('phones.sortByName');
+Route::get('phones/sort-by-purchase-date', [PhoneController::class, 'sortByPurchaseDate'])->name('phones.sortByPurchaseDate');
+Route::get('phones/sort-by-quantity', [PhoneController::class, 'sortByQuantity'])->name('phones.sortByQuantity');
+Route::get('phones/sort-by-price', [PhoneController::class, 'sortByPrice'])->name('phones.sortByPrice');

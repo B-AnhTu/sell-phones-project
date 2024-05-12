@@ -4,7 +4,21 @@
     <main class="login-form">
         <h3 class="text-center mt-3">Quản lý người dùng</h3>
         <div class="container">
+            <div class="row">
+                <div class="col">
+                <form class="d-flex ms-auto">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="search-btn btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
+                </div>
+            </div>
+        </div>
+        <div class="container">
             <div class="row justify-content-center my-3">
+                <div class="col p-2 my-3">
+                    <a class="btnAction" href="{{ route('user.sort', ['direction' => 'asc']) }}">Ascending</a>
+                    <a class="btnAction" href="{{ route('user.sort', ['direction' => 'desc']) }}">Descending</a>
+                </div>
                 <table>
                     <thead>
                         <tr>

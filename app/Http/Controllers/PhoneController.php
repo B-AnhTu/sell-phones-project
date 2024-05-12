@@ -106,10 +106,10 @@ class PhoneController extends Controller
      */
     public function createPhone()
     {
-        $categories = DB::table('categories')->select('*')->get();
-        $manufacturers = DB::table('manufacturers')->select('*')->get();
-        $products = DB::table('products')->select('*')->get();
-        return view('admin.phone.create', ['categories' => $categories, 'products' => $products, 'manufacturers' => $manufacturers]);
+        
+        $categories = Category::all();
+        $manufacturers = Manufacturer::all();
+        return view('admin.phone.create', ['categories' => $categories, 'manufacturers' => $manufacturers]);
     }
 
     /**
@@ -232,8 +232,35 @@ class PhoneController extends Controller
             $phone->delete();
             return redirect()->route('admin.phone.list')->with('success', 'Sản phẩm đã được xóa thành công.');
         } catch (\Exception $e) {
-            // Xử l lỗi khi xóa không thành công
+            // Xử lý lỗi khi xóa không thành công
             return redirect()->route('admin.phone.list')->with('error', 'Xóa sản phẩm không thành công.');
         }
+    }
+    // Sắp xếp sản phẩm theo tên
+    public function sortByPhoneName()
+    {
+        $phones = Phone::orderBy('phone_name')->paginate(5);
+        return view('admin.phone.list', compact('phones'));
+    }
+
+    // Sắp xếp sản phẩm theo ngày mua
+    public function sortByPurchaseDate()
+    {
+        $phones = Phone::orderBy('purchases', 'asc')->paginate(5);
+        return view('admin.phone.list', compact('phones'));
+    }
+
+    // Sắp xếp sản phẩm theo số lượng
+    public function sortByQuantity()
+    {
+        $phones = Phone::orderBy('quantities', 'asc')->paginate(5);
+        return view('admin.phone.list', compact('phones'));
+    }
+
+    // Sắp xếp sản phẩm theo giá tiền
+    public function sortByPrice()
+    {
+        $phones = Phone::orderBy('price', 'asc')->paginate(5);
+        return view('admin.phone.list', compact('phones'));
     }
 }

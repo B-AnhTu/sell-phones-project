@@ -47,6 +47,7 @@
     background-color: rgb(214, 206, 206);
     padding: 10px 20px;
     margin: 10px 15px;
+    border-radius: 10px;
 }
 .btnAction:hover{
     color: white;
@@ -68,5 +69,12 @@
 .table-img{
     width: 60px;
     height: 60px;
+}
+#top{
+    border-radius: 50%;
+}
+.toTopIcon{
+    color: rgb(241, 16, 16);
+    font-size: 20px;
 }
 

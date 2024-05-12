@@ -41,7 +41,7 @@ class PhonesTableSeeder extends Seeder
         ]);
         DB::table('phones')->insert([
             'phone_name' => 'Iphone 7s',
-            'phone_image' => 'iphone7s.png',
+            'phone_image' => 'ip7s.png',
             'description' => 'Điện thoại iphone',
             'quantities' => 43,
             'price' => 3499000,
@@ -133,5 +133,20 @@ class PhonesTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+        for ($i=0; $i < 10; $i++) { 
+            DB::table('phones')->insert([
+                'phone_name' => 'Iphone 1'.$i,
+                'phone_image' => 'iphone15pro.jpg',
+                'description' => 'Điện thoại iphone',
+                'quantities' => 60,
+                'price' => 5699000,
+                'status' => 1,
+                'purchases' => 0,
+                'manu_id' => 2,
+                'category_id' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+        }
     }
 }
