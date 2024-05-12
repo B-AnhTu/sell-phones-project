@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Manufacturer;
 
 class ManufacturerController extends Controller
 {
@@ -11,7 +12,8 @@ class ManufacturerController extends Controller
      */
     public function index()
     {
-        //
+        $manufacturers = Manufacturer::all();
+        return view('admin.manufacturer.listmanufacturer', compact('manufacturers'));
     }
 
     /**
@@ -19,7 +21,7 @@ class ManufacturerController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -57,8 +59,10 @@ class ManufacturerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        $manufacturer = Manufacturer::find($request->id);
+        $manufacturer->delete();
+        return redirect()->back();
     }
 }

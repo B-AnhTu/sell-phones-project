@@ -1,11 +1,11 @@
-@extends('header.dashboard')
+@extends('dashboard')
 <style>
     .login-form {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 150vh;
         margin: 0;
+        height: 80vh;
     }
 </style>
 @section('content')
@@ -13,7 +13,13 @@
     <div class="row">
         <div class="col login-form">
             <div class="form-container align-item-center">
-        <p class="title">Login</p>
+            <!-- Hiển thị thông báo thành công -->
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <p class="title">Login</p>
         <form class="form" action="{{ route('user.authUser') }}" method="POST">
         @csrf
             <div class="input-group">

@@ -12,17 +12,25 @@ use Illuminate\Support\Facades\DB;
 class DashBoardController extends Controller
 {
     public function index(){
+
+        if (auth()->user()->user_type == 1) {
+            // Nếu là admin
+            return redirect()->route('admin.dashboard');
+        } else {
+            // Nếu là người dùng thường
+            return redirect()->route('phone.index');
+        }
        
 
        // Truy vấn dữ liệu từ các bảng khác
-       $categories = Category::all();
-       $manufacturers = Manufacturer::all();
+    //    $categories = Category::all();
+    //    $manufacturers = Manufacturer::all();
 
-       // Truyền dữ liệu vào view
-       return view('header.dashboard', [
-           'categories' => $categories,
-           'manufacturers' => $manufacturers
-       ]);
+    //    // Truyền dữ liệu vào view
+    //    return view('header.dashboard', [
+    //        'categories' => $categories,
+    //        'manufacturers' => $manufacturers
+    //    ]);
     }
     public function adminIndex(){
         $products = Phone::all();
