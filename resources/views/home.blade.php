@@ -3,12 +3,12 @@
 @section('content')
 <div class="container-fluid" style="text-align: center;">
         <h2>Dach sách sản phẩm</h2>
-        <div class="result card ">
+        <div class="result">
             <div class="row">
                 @foreach($phones as $phone)
                 <div class="col-md-3 my-4">
-                    <div class="product">
-                        <div class="product-image">
+                    <div class="product border border-1 p-3">
+                        <div class="product-image text-center">
                             <img class="img-fluid" src="{{ asset('images/' .$phone->phone_image) }}" alt="iPhone 15 Pro">
                         </div>
                         <div class="product-info">
