@@ -7,6 +7,7 @@ use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,14 +51,12 @@ Route::get('/phone/category/{id}', [PhoneController::class, 'showByCategory'])->
 Route::get('/phone/manufacturers/{id}', [PhoneController::class, 'showByManufacturer'])->name('manufacturers.show');
 
 //Route giỏ hàng
-Route::get('/carts', [CartController::class, 'index'])->name('carts.index');
-Route::post('/carts/add', [CartController::class, 'add'])->name('carts.add');
-Route::post('/carts/update', [CartController::class, 'update'])->name('carts.update');
-Route::post('/carts/remove', [CartController::class, 'remove'])->name('carts.remove');
-Route::get('/carts/search', [CartController::class, 'search'])->name('carts.search');
+Route::get('/carts', [CartController::class, 'index'])->name('carts.index')->middleware('auth');
+Route::post('/carts/add', [CartController::class, 'add'])->name('carts.add')->middleware('auth');
+Route::post('/carts/update', [CartController::class, 'update'])->name('carts.update')->middleware('auth');
+Route::post('/carts/remove', [CartController::class, 'remove'])->name('carts.remove')->middleware('auth');
+Route::get('/carts/search', [CartController::class, 'search'])->name('carts.search')->middleware('auth');
 
-Route::get('/cart', [CartController::class, 'showCart'])->name('cart.show');
-Route::post('/add-to-cart/{productId}', [CartController::class, 'addToCart'])->name('cart.add');
 
 // Admin routes
 Route::get('index', [DashBoardController::class, 'adminIndex'])->name('admin.index');
@@ -109,3 +108,10 @@ Route::get('phones/sort-by-name', [PhoneController::class, 'sortByPhoneName'])->
 Route::get('phones/sort-by-purchase-date', [PhoneController::class, 'sortByPurchaseDate'])->name('phones.sortByPurchaseDate');
 Route::get('phones/sort-by-quantity', [PhoneController::class, 'sortByQuantity'])->name('phones.sortByQuantity');
 Route::get('phones/sort-by-price', [PhoneController::class, 'sortByPrice'])->name('phones.sortByPrice');
+
+Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile.show');
+Route::get('/profile/create', [ProfileController::class, 'createProfile'])->name('profile.create');
+Route::post('/profile', [ProfileController::class, 'storeProfile'])->name('profile.store');
+Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
+Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
+Route::delete('/profile', [ProfileController::class, 'deleteProfile'])->name('profile.delete');

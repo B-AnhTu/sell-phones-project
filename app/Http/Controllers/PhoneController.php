@@ -48,7 +48,7 @@ class PhoneController extends Controller
                         ->with('category', 'manufacturer')
                         ->paginate(4);
 
-        return view('phones.search', compact('phones'));
+        return view('home', compact('phones'));
     }
     /**
      * Chi tiết sản phẩm
@@ -57,7 +57,7 @@ class PhoneController extends Controller
     public function show($id)
     {
         $phone = Phone::with('category', 'manufacturer')->findOrFail($id);
-        return view('phones.show', compact('phone'));
+        return view('home', compact('phone'));
     }
     /**
      * Hiển thị sản phẩm theo tên.
@@ -66,7 +66,7 @@ class PhoneController extends Controller
     public function showByName($name)
     {
         $phone = DB::table('phones')::where('phone_name', $name)->get();
-        return view('phones.show', compact('phone'));
+        return view('home', compact('phone'));
     }
 
     /**
@@ -81,7 +81,7 @@ class PhoneController extends Controller
         $phones = $category->phones()->paginate(4);
 
         // Truyền dữ liệu vào view
-        return view('phones.index', compact('category', 'phones'));
+        return view('home', compact('category', 'phones'));
     }
 
     /**
@@ -96,7 +96,7 @@ class PhoneController extends Controller
         $phones = $manufacturer->phones()->paginate(4);
 
         // Truyền dữ liệu vào view
-        return view('phones.index', compact('manufacturer', 'phones'));
+        return view('home', compact('manufacturer', 'phones'));
     }
 
     // Admin

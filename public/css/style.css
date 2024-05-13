@@ -77,4 +77,10 @@
     color: rgb(241, 16, 16);
     font-size: 20px;
 }
+.bg-green{
+    background-color: green;
+}
+.bg-red{
+    background-color: red;
+}
 

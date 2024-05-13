@@ -15,7 +15,7 @@
         <div class="container me-auto">
             <div class="row">
                 <div class="col">
-                    <img class="img-fluid logo" src="{{asset('images/logo.png')}}" alt="">
+                    <a href="{{route('home')}}"><img class="img-fluid logo" src="{{asset('images/logo.png')}}" alt=""></a>
                 </div>
             </div>
         </div>
@@ -58,7 +58,7 @@
                           </form>
                           <!-- Các icon điều hướng -->
                           <div class="navbar-action">
-                            <a class="navbar-icon" href="#"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <a class="navbar-icon" href="{{route('carts.index')}}"><i class="fa-solid fa-cart-shopping"></i></a>
                             <a class="navbar-icon" href="#"><i class="fa-solid fa-user"></i></a>
                           </div>
                         </div>

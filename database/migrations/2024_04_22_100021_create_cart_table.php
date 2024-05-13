@@ -15,7 +15,6 @@ return new class extends Migration
             //$table->id();
             $table->increments('cart_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedInteger('phone_id');
             $table->integer('quantity');
             $table->double('total_price');
             $table->timestamps();

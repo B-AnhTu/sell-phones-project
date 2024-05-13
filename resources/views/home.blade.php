@@ -14,8 +14,14 @@
                         <div class="product-info">
                             <h3>{{$phone->phone_name}}</h3>
                             <p>Giá bán: {{$phone->price}}</p>
-                            <a href="#" class="btn btn-primary">Xem chi tiết</a>
-                            <a href="#" class="btn btn-light">Đặt hàng</a>
+                            <form action="{{ route('carts.add') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="phone_id" value="{{ $phone->phone_id }}">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="btn btn-primary">Thêm vào giỏ</button>
+                                <a href="#" class="btn btn-primary">Xem chi tiết</a>
+
+                            </form>
                         </div>
                     </div>
                 </div>

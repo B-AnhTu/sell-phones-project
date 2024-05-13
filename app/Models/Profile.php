@@ -24,6 +24,6 @@ class Profile extends Model
     public $incrementing = true;
 
     public function users(){
-        return $this->hasOne(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

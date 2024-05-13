@@ -15,12 +15,8 @@ class CartController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::id(); // Lấy ID của người dùng hiện tại
-        $cart = session()->get('cart');
-        //return view('cart', compact('cart'));
-        //$carts = Cart::with('cartDetails')->where('user_id', $user_id)->get();
-
-        return view('carts.index', compact('carts'));
+        $cart = session()->get('cart', []);
+        return view('cart.index', compact('cart'));
     }
 
     /**
@@ -29,27 +25,28 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $request->validate([
-            'phone_id' => 'required|exists:phones,id',
+            'phone_id' => 'required|exists:phones,phone_id',
             'quantity' => 'required|integer|min:1'
         ]);
-
+    
         $phone = Phone::findOrFail($request->phone_id);
         $cart = session()->get('cart', []);
-
-        // Kiểm tra sản phẩm đã có trong giỏ hàng chưa
-        if (isset($cart[$phone->id])) {
-            $cart[$phone->id]['quantity'] += $request->quantity;
+    
+        if (isset($cart[$phone->phone_id])) {
+            $cart[$phone->phone_id]['quantity'] += $request->quantity;
+            $cart[$phone->phone_id]['total_price'] = $cart[$phone->phone_id]['price'] * $cart[$phone->phone_id]['quantity'];
         } else {
-            $cart[$phone->id] = [
-                "name" => $phone->name,
+            $cart[$phone->phone_id] = [
+                "name" => $phone->phone_name,
+                "image" => $phone->phone_image, 
                 "quantity" => $request->quantity,
                 "price" => $phone->price,
                 "total_price" => $phone->price * $request->quantity
             ];
         }
-
+    
         session()->put('cart', $cart);
-        return redirect()->route('carts.index')->with('success', 'Product added to cart successfully!');
+        return redirect()->route('phone.index')->with('success', 'Product added to cart successfully!');
     }
 
     /**
@@ -60,21 +57,15 @@ class CartController extends Controller
         $request->validate([
             'quantity' => 'required|integer|min:1'
         ]);
-
-        $cartDetail = CartDetail::findOrFail($id);
-        $oldTotal = $cartDetail->total_price;
-        $newTotal = $cartDetail->phone->price * $request->quantity;
-
-        $cartDetail->quantities = $request->quantity;
-        $cartDetail->total_price = $newTotal;
-        $cartDetail->save();
-
-        // Cập nhật tổng giá trị giỏ hàng
-        $cart = $cartDetail->cart;
-        $cart->total_price = $cart->total_price - $oldTotal + $newTotal;
-        $cart->save();
-
-        return redirect()->route('carts.index')->with('success', 'Cart updated successfully!');
+    
+        $cart = session()->get('cart', []);
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity'] = $request->quantity;
+            $cart[$id]['total_price'] = $cart[$id]['price'] * $request->quantity;
+            session()->put('cart', $cart);
+        }
+    
+        return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
     }
 
     /**
@@ -82,14 +73,13 @@ class CartController extends Controller
      */
     public function remove($id)
     {
-        $cartDetail = CartDetail::findOrFail($id);
-        $cart = $cartDetail->cart;
-        $cart->total_price -= $cartDetail->total_price;
-        $cart->save();
+        $cart = session()->get('cart', []);
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+        }
 
-        $cartDetail->delete();
-
-        return redirect()->route('carts.index')->with('success', 'Product removed from cart successfully!');
+        return redirect()->route('cart.index')->with('success', 'Product removed from cart successfully!');
     }
 
     /**
@@ -98,13 +88,11 @@ class CartController extends Controller
     public function search(Request $request)
     {
         $keyword = $request->input('keyword');
-        $user_id = Auth::id();
-        $carts = Cart::where('user_id', $user_id)
-                     ->whereHas('cartDetails', function ($query) use ($keyword) {
-                         $query->where('name', 'like', '%' . $keyword . '%');
-                     })
-                     ->get();
+        $cart = session()->get('cart', []);
+        $filteredCart = array_filter($cart, function ($item) use ($keyword) {
+            return false !== stripos($item['name'], $keyword);
+        });
 
-        return view('carts.search', compact('carts'));
+        return view('cart.search', compact('filteredCart'));
     }
 }
