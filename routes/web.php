@@ -109,9 +109,14 @@ Route::get('phones/sort-by-purchase-date', [PhoneController::class, 'sortByPurch
 Route::get('phones/sort-by-quantity', [PhoneController::class, 'sortByQuantity'])->name('phones.sortByQuantity');
 Route::get('phones/sort-by-price', [PhoneController::class, 'sortByPrice'])->name('phones.sortByPrice');
 
+//Profile
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile.show');
+
 Route::get('/profile/create', [ProfileController::class, 'createProfile'])->name('profile.create');
-Route::post('/profile', [ProfileController::class, 'storeProfile'])->name('profile.store');
+Route::post('/profile/create', [ProfileController::class, 'storeProfile'])->name('profile.store');
+
 Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
-Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
-Route::delete('/profile', [ProfileController::class, 'deleteProfile'])->name('profile.delete');
+Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
+Route::get('/profile/delete', [ProfileController::class, 'deleteProfile'])->name('profile.delete');
+

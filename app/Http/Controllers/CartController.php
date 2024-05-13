@@ -54,6 +54,7 @@ class CartController extends Controller
         }
         //Lưu giỏ hàng vào session
         session()->put('cart', $cart);
+        
         //Chuyển hướng về trang chủ
         return redirect()->route('phone.index')->with('success', 'Product added to cart successfully!');
     }
