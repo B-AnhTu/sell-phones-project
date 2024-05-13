@@ -120,3 +120,22 @@
     Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
     Route::put('/profile', [ProfileController::class, 'updateProfile'])->name('profile.update');
     Route::delete('categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+//Sắp xếp sản phẩm
+Route::get('phones/sort-by-name', [PhoneController::class, 'sortByPhoneName'])->name('phones.sortByName');
+Route::get('phones/sort-by-purchase-date', [PhoneController::class, 'sortByPurchaseDate'])->name('phones.sortByPurchaseDate');
+Route::get('phones/sort-by-quantity', [PhoneController::class, 'sortByQuantity'])->name('phones.sortByQuantity');
+Route::get('phones/sort-by-price', [PhoneController::class, 'sortByPrice'])->name('phones.sortByPrice');
+
+//Profile
+Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile.show');
+
+Route::get('/profile/create', [ProfileController::class, 'createProfile'])->name('profile.create');
+Route::post('/profile/create', [ProfileController::class, 'storeProfile'])->name('profile.store');
+
+Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
+Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
+
+Route::get('/profile/delete', [ProfileController::class, 'deleteProfile'])->name('profile.delete');
+
+

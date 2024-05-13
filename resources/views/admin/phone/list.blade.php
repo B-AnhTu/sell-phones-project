@@ -42,8 +42,8 @@
                             <td>{{ $phone->created_at }}</td>
                             <td>{{ $phone->updated_at }}</td>
                             <td>
-                                <a href="{{ route('phones.updatePhone', ['id' => $phone->phone_id]) }}"><i class="fa-solid fa-pen"></i></a> |
-                                <a href="{{ route('phones.deletePhone', ['id' => $phone->phone_id]) }}"><i class="fa-solid fa-trash"></i></a>
+                                <a href="{{ route('phones.updatePhone', ['phone_id' => $phone->phone_id]) }}"><i class="fa-solid fa-pen"></i></a> |
+                                <a href="{{ route('phones.deletePhone', ['phone_id' => $phone->phone_id]) }}"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>
                     @endforeach

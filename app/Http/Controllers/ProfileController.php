@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ProfileController extends Controller
 {
@@ -18,7 +19,7 @@ class ProfileController extends Controller
     public function showProfile()
     {
         $user = Auth::user();
-        $profile = $user->profile;
+        $profile = $user->profile()->with('user')->first() ?? new Profile(); // Sử dụng null coalescing operator để tránh lỗi nếu không có profile
         return view('profile.viewprofile', compact('profile'));
     }
 
@@ -40,7 +41,14 @@ class ProfileController extends Controller
         ]);
     
         $profile = new Profile($request->all());
-        $profile->user_id = Auth::id(); // Lấy ID người dùng hiện tại
+        $profile->user_id = Auth::id(); // Đảm bảo liên kết profile với người dùng hiện tại
+        $profile->date_of_birth = Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->toDateString(); // Chuyển đổi định dạng ngày tháng
+        
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $profile->image = $imagePath;
+        }
+        
         $profile->save();
     
         return redirect()->route('profile.show')->with('success', 'Profile created successfully.');
@@ -51,6 +59,12 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile; // Giả sử đã có mối quan hệ `profile` trong model `User`
+        
+        if (!$profile) {
+        // Xử lý trường hợp không tìm thấy profile
+            return redirect()->route('profile.create')->with('error', 'Profile not found.');
+        }
+        
         return view('profile.editprofile', compact('profile'));
     }
 
@@ -66,8 +80,15 @@ class ProfileController extends Controller
         ]);
     
         $user = Auth::user();
-        $profile = $user->profile;
-        $profile->update($request->all());
+        $profile = $user->profile ?? new Profile(['user_id' => $user->id]);
+    
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+            $profile->image = $imagePath;
+        }
+    
+        $profile->fill($request->only(['address', 'phone_number', 'gender', 'date_of_birth']));
+        $profile->save();
     
         return redirect()->route('profile.show')->with('success', 'Profile updated successfully.');
     }

@@ -2,25 +2,36 @@
 
 @section('content')
 <div class="container-fluid" style="text-align: center;">
-        <h2>Dach sách sản phẩm</h2>
-        <!-- Hiển thị thông báo thành công -->
-        @if (session('success'))
-            <div class="alert alert-success bg-green">
-                {{ session('success') }}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <form class="d-flex ms-auto">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="search-btn btn btn-outline-success" type="submit"><i
+                            class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
             </div>
-        @endif
-        @if (session('error'))
-            <div class="alert alert-danger bg-red">
-                {{ session('error') }}
-            </div>
-        @endif
-        <div class="result card ">
-            <div class="row">
-                @foreach($phones as $phone)
+        </div>
+    </div>
+    <h2>Dach sách sản phẩm</h2>
+    <!-- Hiển thị thông báo thành công -->
+    @if (session('success'))
+        <div class="alert alert-success bg-green">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if (session('error'))
+        <div class="alert alert-danger bg-red">
+            {{ session('error') }}
+        </div>
+    @endif
+    <div class="result card ">
+        <div class="row">
+            @foreach($phones as $phone)
                 <div class="col-md-3 my-4">
                     <div class="product border border-1 p-3">
                         <div class="product-image">
-                            <img class="img-fluid" src="{{ asset('images/' .$phone->phone_image) }}" alt="iPhone 15 Pro">
+                            <img class="img-fluid" src="{{ asset('images/' . $phone->phone_image) }}" alt="iPhone 15 Pro">
                         </div>
                         <div class="product-info">
                             <h3>{{$phone->phone_name}}</h3>
@@ -35,14 +46,13 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
-            </div>
+            @endforeach
         </div>
     </div>
-    <div class="col mt-3">
-        <!-- Hiển thị thanh phân trang -->
-        {{ $phones->links('pagination::bootstrap-5') }}
-    </div>
+</div>
+<div class="col mt-3">
+    <!-- Hiển thị thanh phân trang -->
+    {{ $phones->links('pagination::bootstrap-5') }}
+</div>
 
 @endsection
-

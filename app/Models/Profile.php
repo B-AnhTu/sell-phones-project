@@ -12,7 +12,6 @@ class Profile extends Model
     protected $fillable = [
         'address',
         'phone',
-        'image',
         'gender',
         'date_of_birth'
     ];
@@ -23,7 +22,7 @@ class Profile extends Model
 
     public $incrementing = true;
 
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
 }
