@@ -80,16 +80,30 @@ class CartController extends Controller
     /**
      * Xóa sản phẩm khỏi giỏ hàng.
      */
-    public function remove($id)
+    public function remove(Request $request)
     {
+        // Kiểm tra và xác thực dữ liệu đầu vào (phone_id)
+        $request->validate([
+            'phone_id' => 'required|exists:phones,phone_id'
+        ]);
+
+        // Lấy giỏ hàng từ session
         $cart = session()->get('cart', []);
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
-            session()->put('cart', $cart);
+
+        // Kiểm tra nếu sản phẩm tồn tại trong giỏ hàng thì xóa nó
+        if (isset($cart[$request->phone_id])) {
+            unset($cart[$request->phone_id]);
         }
 
-        return redirect()->route('cart.index')->with('success', 'Product removed from cart successfully!');
+        // Lưu giỏ hàng đã cập nhật vào session
+        session()->put('cart', $cart);
+
+        $cart = session()->get('cart', []);
+        
+        // Chuyển hướng người dùng về trang chủ với thông báo thành công
+        return redirect()->route('phone.index')->with('success', 'Product removed from cart successfully!');
     }
+
 
     /**
      * Tìm kiếm sản phẩm trong giỏ hàng.
