@@ -15,7 +15,9 @@ class CartController extends Controller
      */
     public function index()
     {
+        //Lấy giỏ hàng từ session
         $cart = session()->get('cart', []);
+        //Trả về view cart.index và truyền biến $cart vào view đó
         return view('cart.index', compact('cart'));
     }
 
@@ -24,18 +26,24 @@ class CartController extends Controller
      */
     public function add(Request $request)
     {
+        //Kiểm tra điều kiện của phone và số lượng sản phẩm
         $request->validate([
             'phone_id' => 'required|exists:phones,phone_id',
             'quantity' => 'required|integer|min:1'
         ]);
-    
+        //Tìm đúng id của phone đó
         $phone = Phone::findOrFail($request->phone_id);
+
+        //Lấy giỏ hàng từ session
         $cart = session()->get('cart', []);
     
+        //Kiểm tra nếu giỏ hàng đã có sản phẩm thuộc id đó rồi thì cập nhật số lượng và tổng tiền
         if (isset($cart[$phone->phone_id])) {
             $cart[$phone->phone_id]['quantity'] += $request->quantity;
             $cart[$phone->phone_id]['total_price'] = $cart[$phone->phone_id]['price'] * $cart[$phone->phone_id]['quantity'];
-        } else {
+        }
+        //Nếu chưa có sản phẩm thuộc id đó thì thêm vào giỏ hàng
+        else {
             $cart[$phone->phone_id] = [
                 "name" => $phone->phone_name,
                 "image" => $phone->phone_image, 
@@ -44,8 +52,9 @@ class CartController extends Controller
                 "total_price" => $phone->price * $request->quantity
             ];
         }
-    
+        //Lưu giỏ hàng vào session
         session()->put('cart', $cart);
+        //Chuyển hướng về trang chủ
         return redirect()->route('phone.index')->with('success', 'Product added to cart successfully!');
     }
 

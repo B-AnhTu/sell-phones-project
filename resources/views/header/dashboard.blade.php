@@ -59,7 +59,7 @@
                           <!-- Các icon điều hướng -->
                           <div class="navbar-action">
                             <a class="navbar-icon" href="{{route('carts.index')}}"><i class="fa-solid fa-cart-shopping"></i></a>
-                            <a class="navbar-icon" href="#"><i class="fa-solid fa-user"></i></a>
+                            <a class="navbar-icon" href="{{route('profile.show')}}"><i class="fa-solid fa-user"></i></a>
                           </div>
                         </div>
                       </nav>
