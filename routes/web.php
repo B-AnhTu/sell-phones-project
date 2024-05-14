@@ -68,7 +68,13 @@
     Route::group(['middleware' => 'role'], function () {
         //Trang chủ Admin
         Route::get('admin/dashboard', [DashBoardController::class, 'adminIndex'])->name('admin.dashboard');
-        Route::get('admin/profile', [DashBoardController::class, 'adminProfile'])->name('admin.profile');
+
+        //Profile Admin
+        Route::get('admin/profile', [ProfileController::class, 'showAdminProfile'])->name('admin.profile');
+        Route::get('admin/profile/edit', [ProfileController::class, 'editProfile'])->name('admin.editProfile');
+
+        Route::post('admin/profile/update', [ProfileController::class, 'updateProfile'])->name('admin.updateProfile');
+
         //User routes
         Route::get('admin/read', [UserController::class, 'readUser'])->name('user.readUser');
         
@@ -89,7 +95,8 @@
         Route::get('phones/update', [PhoneController::class, 'updatePhone'])->name('phones.updatePhone');
         Route::post('phones/update', [PhoneController::class, 'postUpdatePhone'])->name('phones.postUpdatePhone');
         
-        Route::delete('phones/delete', [PhoneController::class, 'deletePhone'])->name('phones.deletePhone');
+        Route::get('phones/delete', [PhoneController::class, 'deletePhone'])->name('phones.deletePhone');
+        Route::get('phones/search', [PhoneController::class, 'searchAdmin'])->name('phones.searchAdmin');
         
         //Category routes
         Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
@@ -115,11 +122,11 @@ Route::get('phones/sort-by-purchase-date', [PhoneController::class, 'sortByPurch
 Route::get('phones/sort-by-quantity', [PhoneController::class, 'sortByQuantity'])->name('phones.sortByQuantity');
 Route::get('phones/sort-by-price', [PhoneController::class, 'sortByPrice'])->name('phones.sortByPrice');
 
-//Profile
+//Profile (User)
 Route::get('/profile', [ProfileController::class, 'showProfile'])->name('profile.show');
 
 Route::get('/profile/create', [ProfileController::class, 'createProfile'])->name('profile.create');
-Route::post('/profile/create', [ProfileController::class, 'storeProfile'])->name('profile.store');
+Route::post('/profile/create', [ProfileController::class, 'postCreateProfile'])->name('profile.postCreate');
 
 Route::get('/profile/edit', [ProfileController::class, 'editProfile'])->name('profile.edit');
 Route::post('/profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');

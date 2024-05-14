@@ -8,10 +8,11 @@
                 <h2 class="text-center mb-3">Sửa thông tin người dùng</h2>
                 <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="user_id" value="{{ $user->id }}">
                     <!-- Tên người dùng -->
                     <div class="form-group mb-3">
-                        <label for="user_fullname">Tên đầy đủ:</label>
-                        <input type="text" id="user_fullname" class="form-control" name="user_fullname" required autofocus>
+                        <label for="user_fullname">Tên người dùng:</label>
+                        <input type="text" id="user_fullname" class="form-control" name="user_fullname" value="{{ $user->user_fullname }}" required autofocus>
                         @if ($errors->has('user_fullname'))
                             <span class="text-danger">{{ $errors->first('user_fullname') }}</span>
                         @endif
@@ -19,7 +20,7 @@
                     <!-- Ngày sinh -->
                     <div class="form-group mb-3">
                         <label for="date_of_birth">Ngày sinh:</label>
-                        <input type="date" id="date_of_birth" class="form-control" name="date_of_birth" required autofocus>
+                        <input type="date" id="date_of_birth" class="form-control" name="date_of_birth" value="{{ $profile->date_of_birth }}" required autofocus>
                         @if ($errors->has('date_of_birth'))
                             <span class="text-danger">{{ $errors->first('date_of_birth') }}</span>
                         @endif
@@ -35,10 +36,19 @@
                             <span class="text-danger">{{ $errors->first('gender') }}</span>
                         @endif
                     </div>
+
+                    <!-- SĐT -->
+                    <div class="form-group mb-3">
+                        <label for="phone_number">SĐT:</label>
+                        <input type="text" id="phone_number" class="form-control" name="phone_number" value="{{ $profile->phone_number }}" required autofocus>
+                        @if ($errors->has('phone_number'))
+                            <span class="text-danger">{{ $errors->first('phone_number') }}</span>
+                        @endif
+                    </div>
                     <!-- Địa chỉ -->
                     <div class="form-group mb-3">
                         <label for="address">Địa chỉ:</label>
-                        <textarea id="address" class="form-control" name="address" placeholder="Nhập địa chỉ của bạn" rows="4"></textarea>
+                        <textarea id="address" class="form-control" name="address" rows="4">{{ $profile->address }}</textarea>
                         @if ($errors->has('address'))
                             <span class="text-danger">{{ $errors->first('address') }}</span>
                         @endif

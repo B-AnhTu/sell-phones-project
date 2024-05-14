@@ -40,9 +40,9 @@ class DashBoardController extends Controller
         return view('admin.dashboard', compact('products', 'categories','manufacturers', 'users'));
     }
     public function profile(){
-        return view('profile');
+        return view('profile.viewprofile');
     }
     public function adminProfile(){
-        return view('admin.profile');
+        return view('admin.profile.viewprofile');
     }
 }

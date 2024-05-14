@@ -20,7 +20,13 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile()->with('user')->first() ?? new Profile(); // Sử dụng null coalescing operator để tránh lỗi nếu không có profile
-        return view('profile.viewprofile', compact('profile'));
+        return view('profile.viewprofile', compact('user', 'profile'));
+    }
+    public function showAdminProfile()
+    {
+        $user = Auth::user();
+        $profile = $user->profile()->with('user')->first() ?? new Profile(); // Sử dụng null coalescing operator để tránh lỗi nếu không có profile
+        return view('admin.profile.viewprofile', compact('user', 'profile'));
     }
 
     // Hiển thị form thêm mới profile
@@ -39,18 +45,18 @@ class ProfileController extends Controller
             'date_of_birth' => 'required|date',
             'image' => 'nullable|image'
         ]);
-    
+
         $profile = new Profile($request->all());
         $profile->user_id = Auth::id(); // Đảm bảo liên kết profile với người dùng hiện tại
         $profile->date_of_birth = Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->toDateString(); // Chuyển đổi định dạng ngày tháng
-        
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
             $profile->image = $imagePath;
         }
-        
+
         $profile->save();
-    
+
         return redirect()->route('profile.show')->with('success', 'Profile created successfully.');
     }
 
@@ -59,13 +65,18 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $profile = $user->profile; // Giả sử đã có mối quan hệ `profile` trong model `User`
-        
+
         if (!$profile) {
-        // Xử lý trường hợp không tìm thấy profile
+            // Xử lý trường hợp không tìm thấy profile
             return redirect()->route('profile.create')->with('error', 'Profile not found.');
         }
-        
-        return view('profile.editprofile', compact('profile'));
+        if ($user->role_id == 0) {
+            return view('profile.editprofile', compact('profile','user'));
+        }
+        else{
+            return view('admin.profile.editprofile', compact('profile','user'));
+        }
+
     }
 
     // Cập nhật thông tin profile
@@ -78,19 +89,26 @@ class ProfileController extends Controller
             'date_of_birth' => 'required|date',
             'image' => 'nullable|image'
         ]);
-    
+
         $user = Auth::user();
-        $profile = $user->profile ?? new Profile(['user_id' => $user->id]);
-    
+        $profile = $user->profile ?? new Profile(['user_id' => $user->id]); // Tạo mới nếu không tồn tại
+
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('images', 'public');
             $profile->image = $imagePath;
         }
-    
+
         $profile->fill($request->only(['address', 'phone_number', 'gender', 'date_of_birth']));
+        if (!$profile->exists) {
+            $profile->user()->associate($user); // Liên kết profile với người dùng nếu là profile mới
+        }
         $profile->save();
-    
-        return redirect()->route('profile.show')->with('success', 'Profile updated successfully.');
+        if ($user->role_id == 0) {
+            return view('profile.viewprofile', compact('profile','user'));
+        }
+        else{
+            return view('admin.profile.viewprofile', compact('profile','user'));
+        }
     }
 
     // Xóa profile
@@ -101,7 +119,11 @@ class ProfileController extends Controller
         if ($profile) {
             $profile->delete();
         }
-
-        return redirect('phone.index')->with('success', 'Profile deleted successfully.');
+        if ($user->role_id == 0) {
+            return redirect()->route('profile.show')->with('success', 'Profile deleted successfully.');
+        }
+        else{
+            return redirect()->route('admin.profile')->with('success', 'Profile deleted successfully.');
+        }
     }
-}   
+}
