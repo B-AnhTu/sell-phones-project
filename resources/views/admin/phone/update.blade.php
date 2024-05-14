@@ -11,7 +11,8 @@
                 <div class="card-body">
                     <form action="{{ route('phones.postUpdatePhone') }}" method="post" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="phone_id" value="{{ $phone->phone_id }}">                        <!-- Tên điện thoại -->
+                        <input type="hidden" name="phone_id" value="{{ $phone->phone_id }}">                       
+                        <!-- Tên điện thoại -->
                         <div class="form-group mb-3">
                             <label for="phone_name">Tên điện thoại:</label>
                             <input type="text" id="phone_name" class="form-control" name="phone_name" value="{{ $phone->phone_name }}" required>
@@ -26,31 +27,19 @@
                         <!-- Mô tả -->
                         <div class="form-group mb-3">
                             <label for="description">Mô tả:</label>
-                            <textarea id="description" class="form-control" name="description" rows="3" required>{{ $phone->description }}</textarea>
+                            <textarea id="description" class="form-control" name="description" rows="3">{{ $phone->description }}</textarea>
                         </div>
 
                         <!-- Số lượng -->
                         <div class="form-group mb-3">
                             <label for="quantities">Số lượng:</label>
-                            <input type="number" id="quantities" class="form-control" name="quantities" value="{{ $phone->quantities }}" required>
+                            <input type="text" id="quantities" class="form-control" name="quantities" value="{{ $phone->quantities }}" required>
                         </div>
 
                         <!-- Giá -->
                         <div class="form-group mb-3">
                             <label for="price">Giá:</label>
                             <input type="text" id="price" class="form-control" name="price" value="{{ $phone->price }}" required>
-                        </div>
-
-                        <!-- Trạng thái -->
-                        <div class="form-group mb-3">
-                            <label for="status">Trạng thái:</label>
-                            <input type="number" id="status" class="form-control" name="status" value="{{ $phone->status }}" disabled required>
-                        </div>
-
-                        <!-- Số lượt mua -->
-                        <div class="form-group mb-3">
-                            <label for="purchases">Số lượt mua:</label>
-                            <input type="number" id="purchases" class="form-control" name="purchases" value="{{ $phone->purchases }}" disabled required>
                         </div>
 
                         <!-- Nhà sản xuất -->

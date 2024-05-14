@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->integer('quantities')->default(0);
             $table->double('price');
-            $table->integer('status');
+            $table->integer('status')->default(1);
             $table->integer('purchases')->default(0);
             $table->unsignedInteger('manu_id');
             $table->unsignedInteger('category_id');

@@ -88,7 +88,8 @@ Route::group(['middleware' => 'role'], function () {
     Route::get('phones/update', [PhoneController::class, 'updatePhone'])->name('phones.updatePhone');
     Route::post('phones/update', [PhoneController::class, 'postUpdatePhone'])->name('phones.postUpdatePhone');
     
-    Route::delete('phones/delete', [PhoneController::class, 'deletePhone'])->name('phones.deletePhone');
+    Route::get('phones/delete', [PhoneController::class, 'deletePhone'])->name('phones.deletePhone');
+    Route::get('phones/search', [PhoneController::class, 'searchAdmin'])->name('phones.searchAdmin');
     
     //Category routes
     Route::get('categories/index', [CategoryController::class, 'index'])->name('categories.index');

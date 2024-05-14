@@ -78,6 +78,7 @@
     </footer>
     <a href="#top" class="totop position-fixed border border-1 rounded-circle px-3 py-2 bottom-0 end-0 text-white fs-4"><i class="fa-solid fa-chevron-up toTopIcon"></i></a>
     <script src="{{ asset('js/scripts.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://kit.fontawesome.com/8d630c67fe.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
