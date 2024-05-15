@@ -19,7 +19,9 @@ class ProfileTableSeeder extends Seeder
             'gender' => 'Nam',
             'address' => 'Hồ Chí Minh',
             'phone_number' => '0987654321',
-            'image' => 'demouser.png',
+            'image' => 'demouser.jpg',
+            'created_at' => now(),
+            'updated_at' => now(),
         ]);
     }
 }

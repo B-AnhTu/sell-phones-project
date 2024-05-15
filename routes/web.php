@@ -71,6 +71,10 @@
 
         //Profile Admin
         Route::get('admin/profile', [ProfileController::class, 'showAdminProfile'])->name('admin.profile');
+
+        Route::get('admin/profile/create', [ProfileController::class, 'createProfile'])->name('admin.createProfile');
+        Route::post('admin/profile/create', [ProfileController::class, 'postCreateProfile'])->name('admin.postCreateProfile');
+        
         Route::get('admin/profile/edit', [ProfileController::class, 'editProfile'])->name('admin.editProfile');
 
         Route::post('admin/profile/update', [ProfileController::class, 'updateProfile'])->name('admin.updateProfile');

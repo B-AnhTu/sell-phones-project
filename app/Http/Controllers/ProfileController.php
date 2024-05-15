@@ -32,32 +32,52 @@ class ProfileController extends Controller
     // Hiển thị form thêm mới profile
     public function createProfile()
     {
-        return view('profile.createprofile');
+        $user = Auth::user();
+        if ($user->role_id == 0) {
+            return view('profile.createprofile', compact('user'));
+        } else {
+            return view('admin.profile.createprofile', compact('user'));
+        }
     }
 
     // Lưu thông tin profile mới
-    public function storeProfile(Request $request)
+    public function postCreateProfile(Request $request)
     {
         $request->validate([
-            'address' => 'required',
+            'user_fullname' => 'required|string|max:255', // Validation cho tên người dùng
+            'address' => 'nullable', // Địa chỉ có thể không được cung cấp
             'phone_number' => 'required',
             'gender' => 'required',
-            'date_of_birth' => 'required|date',
+            'date_of_birth' => 'nullable|date', // Ngày sinh có thể không được cung cấp và phải là định dạng ngày tháng hợp lệ nếu có
             'image' => 'nullable|image'
         ]);
 
-        $profile = new Profile($request->all());
-        $profile->user_id = Auth::id(); // Đảm bảo liên kết profile với người dùng hiện tại
-        $profile->date_of_birth = Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->toDateString(); // Chuyển đổi định dạng ngày tháng
+        $user = Auth::user();
+        $user->user_fullname = $request->user_fullname; // Cập nhật tên người dùng
+        $user->save();
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $profile->image = $imagePath;
+        $profile = new Profile($request->except(['user_fullname']));
+        $profile->user_id = $user->id;
+        if ($request->date_of_birth) {
+            $profile->date_of_birth = Carbon::createFromFormat('Y-m-d', $request->date_of_birth)->toDateString();
         }
 
+        $profile->phone_number = $request->phone_number;
+        $profile->gender = $request->gender;
+        $profile->address = $request->address;
+        // Xử l tải lên hình ảnh
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $profile->image = $imageName;
+        }
         $profile->save();
 
-        return redirect()->route('profile.show')->with('success', 'Profile created successfully.');
+        if ($user->role_id == 0) {
+            return redirect()->route('profile.show')->with('success', 'Profile created successfully.');
+        } else {
+            return redirect()->route('admin.profile')->with('success', 'Profile created successfully.');
+        }
     }
 
     // Hiển thị form chỉnh sửa profile
@@ -71,10 +91,9 @@ class ProfileController extends Controller
             return redirect()->route('profile.create')->with('error', 'Profile not found.');
         }
         if ($user->role_id == 0) {
-            return view('profile.editprofile', compact('profile','user'));
-        }
-        else{
-            return view('admin.profile.editprofile', compact('profile','user'));
+            return view('profile.editprofile', compact('profile', 'user'));
+        } else {
+            return view('admin.profile.editprofile', compact('profile', 'user'));
         }
 
     }
@@ -93,21 +112,23 @@ class ProfileController extends Controller
         $user = Auth::user();
         $profile = $user->profile ?? new Profile(['user_id' => $user->id]); // Tạo mới nếu không tồn tại
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
-            $profile->image = $imagePath;
-        }
 
         $profile->fill($request->only(['address', 'phone_number', 'gender', 'date_of_birth']));
         if (!$profile->exists) {
             $profile->user()->associate($user); // Liên kết profile với người dùng nếu là profile mới
         }
+        
+        // Xử l tải lên hình ảnh
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('images'), $imageName);
+            $profile->image = $imageName;
+        }
         $profile->save();
         if ($user->role_id == 0) {
-            return view('profile.viewprofile', compact('profile','user'));
-        }
-        else{
-            return view('admin.profile.viewprofile', compact('profile','user'));
+            return view('profile.viewprofile', compact('profile', 'user'));
+        } else {
+            return view('admin.profile.viewprofile', compact('profile', 'user'));
         }
     }
 
@@ -121,8 +142,7 @@ class ProfileController extends Controller
         }
         if ($user->role_id == 0) {
             return redirect()->route('profile.show')->with('success', 'Profile deleted successfully.');
-        }
-        else{
+        } else {
             return redirect()->route('admin.profile')->with('success', 'Profile deleted successfully.');
         }
     }
