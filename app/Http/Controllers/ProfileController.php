@@ -110,6 +110,8 @@ class ProfileController extends Controller
         ]);
 
         $user = Auth::user();
+        $user->user_fullname = $request->user_fullname;
+        $user->save();
         $profile = $user->profile ?? new Profile(['user_id' => $user->id]); // Tạo mới nếu không tồn tại
 
 
