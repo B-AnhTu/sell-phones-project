@@ -9,6 +9,17 @@
     <link rel="stylesheet" href="{{asset('css/login.css')}}">
     <script type="text/javascript" src="{{ asset('js/scripts.js') }}"></script>
 
+    <style>
+        .chat {
+            position: fixed;
+            bottom: 20px;
+            right: 10px;
+            z-index: 1000;
+        }
+        .chat a {
+            font-size: 60px; 
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -52,6 +63,14 @@
                                   </li>
                             </ul>
                           </div>
+                            <!-----chat---->
+                            <div class="chat">
+                                <a class="navbar-icon" href="{{ route('chat.show') }}">
+                                    <i class="fa-solid fa-comment"></i>
+                                </a>
+                            </div>
+                            
+                            <!-----endchat---->
                           <form class="d-flex ms-auto">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="search-btn btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -97,9 +116,12 @@
             </div>
         </div>
     </footer>
+    
     <script src="{{ asset('js/scripts.js')}}"></script>
     <script src="https://kit.fontawesome.com/8d630c67fe.js" crossorigin="anonymous"></script>
     <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
+
+    
 </body>
 </html>
 

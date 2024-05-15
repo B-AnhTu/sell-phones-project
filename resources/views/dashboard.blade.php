@@ -19,6 +19,7 @@
                 </div>
             </div>
         </div>
+        
         <!-- Thanh navbar -->
         <div class="container">
             <div class="row">
@@ -34,6 +35,7 @@
                                     <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="fa-solid fa-bars fs-3"></i>
                                     </a>
+                                    
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                       <li><a class="dropdown-item" href="{{route('home')}}">Trang chủ</a></li>
 
