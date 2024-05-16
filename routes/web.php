@@ -9,6 +9,7 @@
     use App\Http\Controllers\ManufacturerController;
     use App\Http\Controllers\ProfileController;
     use App\Http\Controllers\PremiumController;
+    use App\Http\Controllers\ChatController;
 
     /*
     |--------------------------------------------------------------------------
@@ -116,7 +117,8 @@
         //premium router
         Route::get('/premium', [PremiumController::class, 'index'])->name('premium.index');        
     
-    
+        //chat
+        Route::get('/chat', [ChatController::class, 'showChat'])->name('chat.showChat');
     });
 
 

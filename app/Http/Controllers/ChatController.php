@@ -11,7 +11,8 @@ class ChatController extends Controller
     public function showChat()
     {
         // Hiển thị view chat.blade.php
-        return view('chat');
+        // return view('chat.indexchat');
+        echo "heloooo";
     }
 
     // Phương thức để lấy danh sách tin nhắn

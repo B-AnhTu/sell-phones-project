@@ -60,7 +60,7 @@
                                 <form action="{{ route('carts.remove') }}" method="POST">
                                     @csrf
                                     <input type="hidden" name="phone_id" value="{{ $id }}">
-                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc là muốn xóa?')">Remove</button>
                                 </form>
                                 <!-- <span class="cart-item-quantity">{{ $cart[$id]['quantity'] }}</span> -->
                             </td>

@@ -1,51 +1,58 @@
-@extends('header.dashboard')
-<style>
-        #chat-container {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 300px;
-            background-color: #f8f9fa;
-            border: 1px solid #ccc;
-            padding: 15px;
-            z-index: 1000;
-        }
-    </style>
-@section('content') 
-<!-- Phần chat -->
-<div id="chat-container" style="display: none;">
-    <h5>Chat</h5>
-    <div id="message-container">
-        <!-- Danh sách tin nhắn sẽ được hiển thị ở đây -->
-    </div>
-    <form id="message-form">
-        <div class="form-group">
-            <textarea id="message" class="form-control" rows="3" placeholder="Nhập tin nhắn của bạn"></textarea>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+</head>
+<body>
+    <div>
+        <h1>Chat</h1>
+        <div id="messages">
+            <!-- Danh sách tin nhắn sẽ được hiển thị ở đây -->
         </div>
-        <button type="submit" class="btn btn-primary">Gửi</button>
-    </form>
-</div>
+        <form id="messageForm">
+            <input type="text" id="content" placeholder="Nhập tin nhắn...">
+            <button type="submit">Gửi</button>
+        </form>
+    </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<!-- <script>
-    $(document).ready(function(){
-        // Hiển thị hoặc ẩn phần chat khi nhấn nút mở chat
-        $('#open-chat').click(function(){
-            $('#chat-container').toggle();
+    <!-- Sử dụng Axios để tương tác với API -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        // Gửi yêu cầu lấy danh sách tin nhắn khi trang được tải
+        window.onload = function() {
+            axios.get('/messages')
+                .then(function(response) {
+                    const messages = response.data;
+                    const messagesDiv = document.getElementById('messages');
+                    messages.forEach(function(message) {
+                        const messageElement = document.createElement('p');
+                        messageElement.textContent = message.content;
+                        messagesDiv.appendChild(messageElement);
+                    });
+                })
+                .catch(function(error) {
+                    console.error('Có lỗi khi lấy danh sách tin nhắn:', error);
+                });
+        };
+
+        // Xử lý sự kiện gửi tin nhắn
+        document.getElementById('messageForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const content = document.getElementById('content').value;
+            axios.post('/messages', { content: content })
+                .then(function(response) {
+                    alert(response.data.message);
+                    // Sau khi gửi tin nhắn thành công, làm mới danh sách tin nhắn
+                    document.getElementById('messages').innerHTML = '';
+                    window.onload(); // Gửi yêu cầu lấy danh sách tin nhắn mới
+                })
+                .catch(function(error) {
+                    console.error('Có lỗi khi gửi tin nhắn:', error);
+                });
         });
-
-        // Xử lý sự kiện khi gửi tin nhắn
-        $('#message-form').submit(function(e){
-            e.preventDefault(); // Ngăn chặn việc gửi form một cách mặc định
-
-            // Lấy nội dung tin nhắn từ textarea
-            var message = $('#message').val();
-
-            // Gửi tin nhắn đến server (bạn cần phải xử lý phần này bằng Ajax)
-
-            // Xóa nội dung tin nhắn sau khi gửi
-            $('#message').val('');
-        });
-    });
-</script> -->
-@endsection
+    </script>
+</body>
+</html>

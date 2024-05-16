@@ -63,14 +63,7 @@
                                   </li>
                             </ul>
                           </div>
-                            <!-----chat---->
-                            <div class="chat">
-                                <a class="navbar-icon" href="{{ route('chat.show') }}">
-                                    <i class="fa-solid fa-comment"></i>
-                                </a>
-                            </div>
                             
-                            <!-----endchat---->
                           <form class="d-flex ms-auto">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                             <button class="search-btn btn btn-outline-success" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -102,6 +95,13 @@
             </div>
         </div>
     </header>
+    <!-----chat---->
+    <div class="chat">
+                                <a class="navbar-icon" href="{{ route('chat.showChat') }}">
+                                    <i class="fa-solid fa-comment"></i>
+                                </a>
+                            </div>
+                            <!-----endchat---->
     @yield('content')
     <footer>
         <div class="container bg-gray mt-3">
