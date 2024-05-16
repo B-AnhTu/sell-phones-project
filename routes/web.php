@@ -55,7 +55,7 @@
     //Route giỏ hàng
     Route::get('/carts', [CartController::class, 'index'])->name('carts.index')->middleware('auth');
     Route::post('/carts/add', [CartController::class, 'add'])->name('carts.add')->middleware('auth');
-    Route::post('/carts/update', [CartController::class, 'update'])->name('carts.update')->middleware('auth');
+    Route::post('/carts/update/{id}', [CartController::class, 'update'])->name('carts.update')->middleware('auth');
     Route::post('/carts/remove', [CartController::class, 'remove'])->name('carts.remove')->middleware('auth');
     Route::get('/carts/search', [CartController::class, 'search'])->name('carts.search')->middleware('auth');
 
