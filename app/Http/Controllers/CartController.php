@@ -60,23 +60,32 @@ class CartController extends Controller
     }
 
     /**
-     * Cập nhật sản phẩm trong giỏ hàng.
+     * Cập nhật số lượng của sản phẩm trong giỏ hàng.
      */
     public function update(Request $request, $id)
     {
+        // Kiểm tra điều kiện của số lượng sản phẩm
         $request->validate([
             'quantity' => 'required|integer|min:1'
         ]);
-    
+
+        // Lấy giỏ hàng từ session
         $cart = session()->get('cart', []);
+
+        // Kiểm tra nếu sản phẩm có tồn tại trong giỏ hàng
         if (isset($cart[$id])) {
+            // Cập nhật số lượng sản phẩm và tổng tiền
             $cart[$id]['quantity'] = $request->quantity;
             $cart[$id]['total_price'] = $cart[$id]['price'] * $request->quantity;
-            session()->put('cart', $cart);
         }
-    
-        return redirect()->route('cart.index')->with('success', 'Cart updated successfully!');
+
+        // Lưu giỏ hàng đã cập nhật vào session
+        session()->put('cart', $cart);
+
+        // Chuyển hướng về trang giỏ hàng với thông báo thành công
+        return redirect()->route('carts.index')->with('success', 'Cart updated successfully!');
     }
+
 
     /**
      * Xóa sản phẩm khỏi giỏ hàng.
