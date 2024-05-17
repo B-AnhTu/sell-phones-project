@@ -1,0 +1,91 @@
+.search-btn{
+    margin-left: -10px;
+    color: white;
+    padding: 0 20px;
+    background-color: orange;
+}
+.navbar-icon{
+    color: black;
+    text-decoration: none;
+    padding: 10px 25px;
+    font-size: 20px;
+}
+.navbar-icon:hover{
+    color: red;
+}
+.bg-gray{
+    background-color: #f0eaea;
+}
+.addcart{
+    padding: 5px 10px;
+    text-decoration: none;
+    background-color: aqua;
+    color: black;
+    font-weight: bold;
+}
+.addcart:hover{
+    background-color: rgba(43, 21, 241, 0.849);
+    color: white;
+}
+.product-image{
+    width: 200px;
+    height: auto;
+}
+.logo{
+    width: 180px;
+    height: 60px;
+}
+.profile{
+    background-color: aquamarine;
+}
+.profile-info{
+    color: red;
+}
+.btnAction{
+    text-decoration: none;
+    color: black;
+    background-color: rgb(214, 206, 206);
+    padding: 10px 20px;
+    margin: 10px 15px;
+    border-radius: 10px;
+}
+.btnAction:hover{
+    color: white;
+    background-color: blue;
+}
+/* Đảm bảo các hình ảnh nằm trên cùng một hàng */
+.dashboard-image-container {
+    display: flex;
+    justify-content: space-between; /* Hoặc sử dụng 'justify-content: space-between;' tùy vào yêu cầu của bạn */
+    align-items: center; /* Căn giữa các hình ảnh theo chiều dọc */
+}
+
+.dashboard-image {
+    width: 100px;
+    height: 60px;
+    margin: 20px 10px;
+}
+/* Hiển thị hình trong các table */
+.table-img{
+    width: 60px;
+    height: 60px;
+}
+#top{
+    border-radius: 50%;
+}
+.toTopIcon{
+    color: rgb(241, 16, 16);
+    font-size: 20px;
+}
+.bg-green{
+    background-color: green;
+}
+.bg-red{
+    background-color: red;
+}
+.profile-img{
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+}
