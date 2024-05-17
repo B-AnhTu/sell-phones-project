@@ -113,6 +113,17 @@
 
 
         Route::delete('/categories/{id}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+        
+        //Manufacturer
+        Route::get('manufacturer/index', [ManufacturerController::class, 'index'])->name('manufacturer.index');
+        Route::post('manufacturer', [ManufacturerController::class, 'store'])->name('manufacturer.store');
+
+      
+        Route::get('manufacturer/edit/{id}', [ManufacturerController::class, 'edit'])->name('manufacturer.edit');
+
+        Route::put('manufacturer/{id}', [ManufacturerController::class, 'update'])->name('manufacturer.update');
+        Route::delete('manufacturer/{id}', [ManufacturerController::class, 'destroy'])->name('manufacturer.destroy');
     
         //premium router
         Route::get('/premium', [PremiumController::class, 'index'])->name('premium.index');        

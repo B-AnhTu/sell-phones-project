@@ -7,61 +7,48 @@ use App\Models\Manufacturer;
 
 class ManufacturerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $manufacturers = Manufacturer::all();
-        return view('admin.manufacturer.listmanufacturer', compact('manufacturers'));
+        return view('admin.manufacturer.list', compact('manufacturers'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'manufacturer_name' => 'required|string|max:255',
+        ]);
+
+        Manufacturer::create([
+            'manufacturer_name' => $request->manufacturer_name,
+        ]);
+
+        return redirect()->route('manufacturer.index')->with('success', 'Hãng đã được thêm thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id) 
     {
-        //
+        $manufacturer = Manufacturer::findOrFail($id);
+        $manufacturers = Manufacturer::all();
+        return view('admin.manufacturer.list', compact('manufacturer', 'manufacturers'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'manufacturer_name' => 'required|string|max:255',
+        ]);
+
+        $manufacturer = Manufacturer::findOrFail($id);
+        $manufacturer->manufacturer_name = $request->manufacturer_name;
+        $manufacturer->save();
+
+        return redirect()->route('manufacturer.index');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Request $request)
-    {
-        $manufacturer = Manufacturer::find($request->id);
+        $manufacturer = Manufacturer::findOrFail($id);
         $manufacturer->delete();
         return redirect()->back();
     }

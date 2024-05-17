@@ -35,7 +35,7 @@
                                         <i class="fa-solid fa-bars fs-3"></i>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                      <li><a class="dropdown-item" href="#">Trang chủ</a></li>
+                                      <li><a class="dropdown-item" href="{{route('admin.index')}}">Trang chủ</a></li>
                                       <li><a class="dropdown-item" href="{{route('phones.adminIndex')}}">QL điện thoại</a></li>
                                       <li><a class="dropdown-item" href="{{route('categories.index')}}">QL Danh mục</a></li>
                                       <li><a class="dropdown-item" href="{{route('manufacturer.index')}}">QL Hãng</a></li>
