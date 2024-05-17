@@ -98,7 +98,7 @@
     <!-----chat---->
     <div class="chat">
                                 <a class="navbar-icon" href="{{ route('chat.showChat') }}">
-                                    <i class="fa-solid fa-comment"></i>
+                                    <i class="far fa-comment-dots"></i>
                                 </a>
                             </div>
                             <!-----endchat---->
