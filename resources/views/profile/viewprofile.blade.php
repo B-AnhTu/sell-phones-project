@@ -5,9 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-6 col-xs-6">
             <div class="profile p-3 rounded">
-                <h2 class="text-center">Thông tin người dùng</h2>
-                <img src="{{ asset("images/".$profile->image ?? 'demouser.jpg') }}" class="img-fluid d-block mx-auto my-3 profile-img"
-                    alt="">
+                <h2 class="text-center">Thông tin người dng</h2>
+                <img src="{{ asset("images/" . ($profile->image ?? 'demouser.jpg')) }}"
+                    class="img-fluid d-block mx-auto my-3 profile-img" alt="">
                 <p class="fs-4">Tên người dùng: {{ $user->user_fullname }}</p>
                 <p class="fs-4">Giới tính: {{ $profile->gender }}</p>
                 <p class="fs-4">Ngày sinh: {{ $profile->date_of_birth }}</p>
