@@ -58,7 +58,8 @@ class UserController extends Controller
     {
         // Kiểm tra validation cho các trường dữ liệu
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'user_fullname' => 'required|string|max:255',
+            'username' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,svg,gif|max:2048',
@@ -73,9 +74,10 @@ class UserController extends Controller
             $validatedData['image'] = null; // Đảm bảo rằng trường image không bị lỗi khi không có file được tải lên
         }
 
-        // Tạo người dùng mới
+        // Tạo người dng mới
         $user = User::create([
-            'name' => $validatedData['name'],
+            'user_fullname' => $validatedData['user_fullname'],
+            'username' => $validatedData['username'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'image' => $validatedData['image'],

@@ -11,12 +11,20 @@
                             <!-- Form đăng kí -->
                             <form action="{{ route('user.postUser') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
+                                <!-- Tên đầy đủ -->
+                                <div class="form-group mb-3">
+                                    <input type="text" placeholder="Nhập tên người dùng" id="user_fullname" class="form-control" name="user_fullname"
+                                           required autofocus>
+                                    @if ($errors->has('user_fullname'))
+                                        <span class="text-danger">{{ $errors->first('user_fullname') }}</span>
+                                    @endif
+                                </div>
                                 <!-- Tên tài khoản -->
                                 <div class="form-group mb-3">
-                                    <input type="text" placeholder="Name" id="name" class="form-control" name="name"
+                                    <input type="text" placeholder="Nhập username" id="username" class="form-control" name="username"
                                            required autofocus>
-                                    @if ($errors->has('name'))
-                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    @if ($errors->has('username'))
+                                        <span class="text-danger">{{ $errors->first('username') }}</span>
                                     @endif
                                 </div>
                                 <!-- Email -->
