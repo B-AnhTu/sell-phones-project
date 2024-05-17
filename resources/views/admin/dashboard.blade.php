@@ -39,7 +39,7 @@
                                       <li><a class="dropdown-item" href="{{route('phones.adminIndex')}}">QL điện thoại</a></li>
                                       <li><a class="dropdown-item" href="{{route('categories.index')}}">QL Danh mục</a></li>
                                       <li><a class="dropdown-item" href="{{route('manufacturer.index')}}">QL Hãng</a></li>
-                                      <li><a class="dropdown-item" href="{{route('user.list')}}">QL Người dung</a></li>
+                                      <li><a class="dropdown-item" href="{{route('user.list')}}">QL Người dùng</a></li>
                                       <li><hr class="dropdown-divider"></li>
                                       @guest
                                       <li><a class="dropdown-item" href="{{route('login')}}">Đăng nhập</a></li>
